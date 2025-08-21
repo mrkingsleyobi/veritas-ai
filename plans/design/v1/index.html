@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeritasAI - Content Authenticity Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        'primary-dark': '#1D4ED8',
+                        'primary-light': '#3B82F6',
+                        'verification-green': '#10B981',
+                        'caution-orange': '#F59E0B',
+                        'alert-red': '#EF4444',
+                        'dark-gray': '#374151',
+                        'medium-gray': '#9CA3AF',
+                        'light-gray': '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .processing-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .dot-processing {
+            background-color: #F59E0B;
+            box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            animation: pulse-dot 2s infinite;
+        }
+        
+        .dot-complete {
+            background-color: #10B981;
+        }
+        
+        .dot-flagged {
+            background-color: #EF4444;
+        }
+        
+        @keyframes pulse-dot {
+            0% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="bg-primary w-8 h-8 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-dark-gray">Veritas<span class="text-primary">AI</span></span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#" class="border-b-2 border-primary text-dark-gray inline-flex items-center px-1 pt-1 text-sm font-medium">Dashboard</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">New Analysis</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Reports</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="ml-3 relative">
+                        <div class="flex items-center">
+                            <div class="text-sm text-right mr-3 hidden md:block">
+                                <div class="font-medium text-dark-gray">John Doe</div>
+                                <div class="text-medium-gray text-sm">Premium User</div>
+                            </div>
+                            <div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center text-white font-medium">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-dark-gray">Dashboard</h1>
+            <p class="text-medium-gray mt-1">Welcome back! Here's what's happening with your analyses.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total Analyses Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-lg bg-blue-50">
+                        <i class="fas fa-chart-bar text-primary text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-medium-gray">TOTAL ANALYSES</p>
+                        <p class="text-2xl font-bold text-dark-gray">142</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deepfake Detected Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-lg bg-red-50">
+                        <i class="fas fa-exclamation-triangle text-alert-red text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-medium-gray">DEEPFAKE DETECTED</p>
+                        <p class="text-2xl font-bold text-dark-gray">27</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avg Confidence Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-lg bg-green-50">
+                        <i class="fas fa-percentage text-verification-green text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-medium-gray">AVG CONFIDENCE</p>
+                        <p class="text-2xl font-bold text-dark-gray">87%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Analyses Section -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-dark-gray">Recent Analyses</h2>
+            </div>
+            <div class="divide-y divide-gray-200">
+                <!-- Video Analysis -->
+                <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-md bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-video text-primary"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-dark-gray">news_footage.mp4</div>
+                            <div class="text-sm text-medium-gray">Video</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-flex items-center text-sm text-caution-orange">
+                            <span class="status-dot dot-processing"></span>
+                            Processing (65%)
+                        </span>
+                        <button class="ml-4 text-primary hover:text-primary-dark">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Image Analysis -->
+                <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-md bg-green-100 flex items-center justify-center">
+                            <i class="fas fa-image text-verification-green"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-dark-gray">screenshot.png</div>
+                            <div class="text-sm text-medium-gray">Image</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-flex items-center text-sm text-verification-green">
+                            <span class="status-dot dot-complete"></span>
+                            Complete (92%)
+                        </span>
+                        <button class="ml-4 text-primary hover:text-primary-dark">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Audio Analysis -->
+                <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-md bg-yellow-100 flex items-center justify-center">
+                            <i class="fas fa-microphone text-caution-orange"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-dark-gray">interview.wav</div>
+                            <div class="text-sm text-medium-gray">Audio</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-flex items-center text-sm text-alert-red">
+                            <span class="status-dot dot-flagged"></span>
+                            Flagged (78%)
+                        </span>
+                        <button class="ml-4 text-primary hover:text-primary-dark">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-dark-gray">Quick Actions</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-blue-50 transition-colors duration-200">
+                        <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-3">
+                            <i class="fas fa-file-upload text-white"></i>
+                        </div>
+                        <span class="text-sm font-medium text-dark-gray">Upload File</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-blue-50 transition-colors duration-200">
+                        <div class="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mb-3">
+                            <i class="fas fa-link text-white"></i>
+                        </div>
+                        <span class="text-sm font-medium text-dark-gray">Enter URL</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-blue-50 transition-colors duration-200">
+                        <div class="w-12 h-12 rounded-full bg-primary-dark flex items-center justify-center mb-3">
+                            <i class="fas fa-layer-group text-white"></i>
+                        </div>
+                        <span class="text-sm font-medium text-dark-gray">Batch Process</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+        <div class="flex justify-around">
+            <a href="#" class="flex flex-col items-center py-3 text-primary">
+                <i class="fas fa-home text-lg"></i>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-3 text-gray-500">
+                <i class="fas fa-search text-lg"></i>
+                <span class="text-xs mt-1">Analysis</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-3 text-gray-500">
+                <i class="fas fa-file-alt text-lg"></i>
+                <span class="text-xs mt-1">Reports</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-3 text-gray-500">
+                <i class="fas fa-user text-lg"></i>
+                <span class="text-xs mt-1">Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for quick action buttons
+            const quickActions = document.querySelectorAll('.grid button');
+            quickActions.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Visual feedback
+                    this.classList.add('ring-2', 'ring-primary');
+                    setTimeout(() => {
+                        this.classList.remove('ring-2', 'ring-primary');
+                    }, 300);
+                    
+                    // In a real app, this would trigger the appropriate action
+                    console.log('Quick action clicked:', this.querySelector('span').textContent);
+                });
+            });
+            
+            // Add hover effects for status indicators
+            const statusIndicators = document.querySelectorAll('.status-dot');
+            statusIndicators.forEach(indicator => {
+                indicator.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.2)';
+                });
+                
+                indicator.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - VeritasAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        'primary-dark': '#1D4ED8',
+                        'primary-light': '#3B82F6',
+                        'verification-green': '#10B981',
+                        'caution-orange': '#F59E0B',
+                        'alert-red': '#EF4444',
+                        'dark-gray': '#374151',
+                        'medium-gray': '#9CA3AF',
+                        'light-gray': '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .radial-progress {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#2563EB 0% 85%, #E5E7EB 85% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .radial-progress::before {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        .radial-center {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .confidence-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #10B981 0%, #F59E0B 50%, #EF4444 100%);
+        }
+        
+        .finding-marker {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #EF4444;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2563EB;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="bg-primary w-8 h-8 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-dark-gray">Veritas<span class="text-primary">AI</span></span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Dashboard</a>
+                        <a href="#" class="border-b-2 border-primary text-dark-gray inline-flex items-center px-1 pt-1 text-sm font-medium">New Analysis</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Reports</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="ml-3 relative">
+                        <div class="flex items-center">
+                            <div class="text-sm text-right mr-3 hidden md:block">
+                                <div class="font-medium text-dark-gray">John Doe</div>
+                                <div class="text-medium-gray text-sm">Premium User</div>
+                            </div>
+                            <div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center text-white font-medium">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a href="index.html" class="inline-flex items-center text-primary hover:text-primary-dark">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to Dashboard
+            </a>
+        </div>
+
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-dark-gray">Analysis Results</h1>
+            <p class="text-medium-gray mt-1">news_footage.mp4</p>
+        </div>
+
+        <!-- Overall Authenticity Score -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-lg font-medium text-dark-gray mb-2">Overall Authenticity</h2>
+                    <div class="flex items-center">
+                        <span class="text-4xl font-bold text-dark-gray">85%</span>
+                        <span class="ml-3 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Authentic</span>
+                    </div>
+                    <p class="text-medium-gray mt-2">High confidence in authenticity</p>
+                </div>
+                <div class="radial-progress">
+                    <div class="radial-center">
+                        <span class="text-2xl font-bold text-primary">85%</span>
+                        <p class="text-sm text-medium-gray">Authentic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-lg bg-blue-50">
+                        <i class="fas fa-clock text-primary text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-medium-gray">Processing Time</p>
+                        <p class="text-lg font-bold text-dark-gray">2m 15s</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-lg bg-green-50">
+                        <i class="fas fa-check-circle text-verification-green text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-medium-gray">Confidence Level</p>
+                        <p class="text-lg font-bold text-dark-gray">High (92%)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-lg bg-purple-50">
+                        <i class="fas fa-calendar-alt text-purple-500 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-medium-gray">Analyzed</p>
+                        <p class="text-lg font-bold text-dark-gray">Today at 14:30</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Findings and Technical Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Findings -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="px-6 py-5 border-b border-gray-200">
+                    <h2 class="text-lg font-medium text-dark-gray">Findings</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center">
+                                    <i class="fas fa-exclamation text-alert-red text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-dark-gray">Deepfake Detection</h3>
+                                <p class="text-sm text-medium-gray mt-1">Facial manipulation detected at 1:25-1:30 with 78% confidence</p>
+                                <div class="mt-2 flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-alert-red h-2 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                    <span class="ml-2 text-xs text-medium-gray">78%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-verification-green text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-dark-gray">Audio Synchronization</h3>
+                                <p class="text-sm text-medium-gray mt-1">Minor lip sync issues detected at 3:45 with 65% confidence</p>
+                                <div class="mt-2 flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-caution-orange h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                    <span class="ml-2 text-xs text-medium-gray">65%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-verification-green text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-dark-gray">Image Consistency</h3>
+                                <p class="text-sm text-medium-gray mt-1">No significant inconsistencies detected</p>
+                                <div class="mt-2 flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-verification-green h-2 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                    <span class="ml-2 text-xs text-medium-gray">95%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="px-6 py-5 border-b border-gray-200">
+                    <h2 class="text-lg font-medium text-dark-gray">Technical Details</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Model Version</p>
+                            <p class="text-sm text-dark-gray">Deepfake Detector v2.1.0</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Accuracy</p>
+                            <p class="text-sm text-dark-gray">95%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Precision</p>
+                            <p class="text-sm text-dark-gray">93%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Recall</p>
+                            <p class="text-sm text-dark-gray">97%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Content Type</p>
+                            <p class="text-sm text-dark-gray">Video (MP4)</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Duration</p>
+                            <p class="text-sm text-dark-gray">4m 30s</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-medium-gray">Resolution</p>
+                            <p class="text-sm text-dark-gray">1920×1080</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Visualization -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-dark-gray">Timeline</h2>
+            </div>
+            <div class="p-6">
+                <div class="relative">
+                    <!-- Timeline bar -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200" style="top: 20px; bottom: 20px;"></div>
+                    
+                    <!-- Timeline markers -->
+                    <div class="relative space-y-12 py-4">
+                        <div class="flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <p class="text-sm font-medium text-dark-gray">00:00</p>
+                                <p class="text-sm text-medium-gray">Authentic</p>
+                            </div>
+                            <div class="timeline-marker bg-green-500"></div>
+                            <div class="w-1/2 pl-8"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-1/2 pr-8 text-right"></div>
+                            <div class="timeline-marker bg-caution-orange"></div>
+                            <div class="w-1/2 pl-8">
+                                <p class="text-sm font-medium text-dark-gray">01:25</p>
+                                <p class="text-sm text-medium-gray">Face Swap Detected</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <p class="text-sm font-medium text-dark-gray">02:10</p>
+                                <p class="text-sm text-medium-gray">Authentic</p>
+                            </div>
+                            <div class="timeline-marker bg-green-500"></div>
+                            <div class="w-1/2 pl-8"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-1/2 pr-8 text-right"></div>
+                            <div class="timeline-marker bg-alert-red"></div>
+                            <div class="w-1/2 pl-8">
+                                <p class="text-sm font-medium text-dark-gray">03:45</p>
+                                <p class="text-sm text-medium-gray">Lip Sync Issue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-dark-gray">Actions</h2>
+            </div>
+            <div class="p-6">
+                <div class="flex flex-wrap gap-3">
+                    <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-dark-gray bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        <i class="fas fa-download mr-2"></i>
+                        Download Report
+                    </button>
+                    <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-dark-gray bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        <i class="fas fa-share-alt mr-2"></i>
+                        Share Results
+                    </button>
+                    <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-dark-gray bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        <i class="fas fa-redo mr-2"></i>
+                        Re-analyze
+                    </button>
+                    <button class="inline-flex items-center px-4 py-2 border border-alert-red rounded-md shadow-sm text-sm font-medium text-alert-red bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-alert-red">
+                        <i class="fas fa-flag mr-2"></i>
+                        Flag Issue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+        <div class="flex justify-around">
+            <a href="index.html" class="flex flex-col items-center py-3 text-gray-500">
+                <i class="fas fa-home text-lg"></i>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-3 text-primary">
+                <i class="fas fa-search text-lg"></i>
+                <span class="text-xs mt-1">Analysis</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-3 text-gray-500">
+                <i class="fas fa-file-alt text-lg"></i>
+                <span class="text-xs mt-1">Reports</span>
+            </a>
+            <a href="#" class="flex flex-col items-center py-3 text-gray-500">
+                <i class="fas fa-user text-lg"></i>
+                <span class="text-xs mt-1">Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for action buttons
+            const actionButtons = document.querySelectorAll('.flex.flex-wrap.gap-3 button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Visual feedback
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+                    this.disabled = true;
+                    
+                    // Simulate processing
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+                        
+                        // Show success message
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'fixed bottom-20 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg';
+                        successMessage.textContent = 'Action completed successfully!';
+                        document.body.appendChild(successMessage);
+                        
+                        setTimeout(() => {
+                            successMessage.remove();
+                        }, 3000);
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

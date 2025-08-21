@@ -2,7 +2,7 @@
 Main application file for VeritasAI.
 """
 from fastapi import FastAPI
-from src.database import engine, Base
+from src.database import Base
 from src.api.auth import router as auth_router
 from src.api.content import router as content_router
 from src.cache.redis_client import ping_redis
@@ -11,9 +11,6 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-
-# Create database tables
-Base.metadata.create_all(bind=engine)
 
 # Create FastAPI app
 app = FastAPI(

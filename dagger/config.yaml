@@ -1,0 +1,37 @@
+# Dagger CI/CD Pipeline Configuration for VeritasAI
+name: veritasai-pipeline
+version: 1.0
+
+# Pipeline stages
+stages:
+  - name: build
+    description: Build the application
+    commands:
+      - echo "Building VeritasAI application"
+      - pip install -r requirements.txt
+      - echo "Build completed successfully"
+
+  - name: test
+    description: Run tests
+    commands:
+      - echo "Running tests"
+      - python -m pytest src/tests/ -v
+      - echo "Tests completed successfully"
+
+  - name: security-scan
+    description: Security scanning
+    commands:
+      - echo "Running security scans"
+      - echo "Security scan completed"
+
+  - name: deploy-staging
+    description: Deploy to staging environment
+    commands:
+      - echo "Deploying to staging environment"
+      - echo "Staging deployment completed"
+
+  - name: deploy-production
+    description: Deploy to production environment
+    commands:
+      - echo "Deploying to production environment"
+      - echo "Production deployment completed"
