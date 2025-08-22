@@ -13,28 +13,44 @@ class VeritasAIPipeline:
         return (
             dag.container()
             .from_("python:3.9-slim")
-            .with_directory("/app", dag.host().directory("."))
+            .with_directory("/app", dag.host().directory(".", exclude=[".git", ".github", "__pycache__", "*.pyc"]))
             .with_workdir("/app")
-            .with_exec(["pip", "install", "-r", "requirements.txt"])
+            .with_exec(["pip", "install", "--no-cache-dir", "-r", "requirements.txt"])
         )
 
     @function
-    def test(self) -> dagger.Container:
+    def test(self) -> str:
         """Run tests for the VeritasAI application."""
-        return (
+        test_container = (
             self.build()
-            .with_exec(["pip", "install", "pytest"])
-            .with_exec(["pytest", "src/tests/", "-v"])
+            .with_exec(["pip", "install", "--no-cache-dir", "pytest", "pytest-asyncio"])
+            .with_env_variable("DATABASE_URL", "sqlite:///:memory:")
+            .with_exec(["python", "-m", "pytest", "src/tests/", "-v", "--tb=short"])
         )
+        
+        return test_container.stdout()
 
     @function
-    def security_scan(self) -> dagger.Container:
+    def security_scan(self) -> str:
         """Run security scans on the VeritasAI application."""
-        return (
+        security_container = (
             self.build()
-            .with_exec(["pip", "install", "bandit"])
-            .with_exec(["bandit", "-r", "src/"])
+            .with_exec(["pip", "install", "--no-cache-dir", "bandit"])
+            .with_exec(["bandit", "-r", "src/", "-ll"])
         )
+        
+        return security_container.stdout()
+
+    @function
+    def lint(self) -> str:
+        """Run code linting."""
+        lint_container = (
+            self.build()
+            .with_exec(["pip", "install", "--no-cache-dir", "flake8"])
+            .with_exec(["flake8", "src/", "--count", "--select=E9,F63,F7,F82", "--show-source", "--statistics"])
+        )
+        
+        return lint_container.stdout()
 
     @function
     def deploy_staging(self) -> str:
@@ -49,15 +65,18 @@ class VeritasAIPipeline:
         return "Deployed to production environment"
 
     @function
-    def full_pipeline(self) -> str:
-        """Run the complete CI/CD pipeline."""
+    def ci_pipeline(self) -> str:
+        """Run the complete CI pipeline (build, test, security scan, lint)."""
         # Build
-        build_container = self.build()
+        build_result = self.build()
         
         # Test
-        test_container = self.test()
+        test_output = self.test()
         
         # Security scan
-        security_container = self.security_scan()
+        security_output = self.security_scan()
         
-        return "CI/CD pipeline completed successfully"
+        # Lint
+        lint_output = self.lint()
+        
+        return f"CI Pipeline completed successfully!\n\nTest Results:\n{test_output}\n\nSecurity Scan:\n{security_output}\n\nLinting:\n{lint_output}"

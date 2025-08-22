@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+  # Traditional CI pipeline (existing)
   build:
     runs-on: ubuntu-latest
     
@@ -23,6 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install email-validator
     
     - name: Run linter
       run: |
@@ -39,8 +41,45 @@ jobs:
         pip install bandit
         bandit -r src/ -ll
 
+  # Dagger-based CI pipeline (new)
+  dagger-ci:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install Dagger
+      run: |
+        cd /usr/local
+        wget -O dagger.tar.gz "https://github.com/dagger/dagger/releases/latest/download/dagger_linux_amd64.tar.gz"
+        tar xzf dagger.tar.gz
+        chmod +x dagger
+        echo "/usr/local" >> $GITHUB_PATH
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install dagger-io
+    
+    - name: Run Dagger CI Pipeline
+      run: |
+        dagger call -m ./dagger ci-pipeline
+      env:
+        # Add any required environment variables here
+        DATABASE_URL: sqlite:///:memory:
+
   deploy-staging:
-    needs: build
+    needs: [build, dagger-ci]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
