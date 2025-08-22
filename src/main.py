@@ -8,8 +8,11 @@ from src.api.content import router as content_router
 from src.ai.api import router as ai_router
 from src.ai.ml.api import router as ml_router
 from src.dashboard.api import router as dashboard_router
+from src.dashboard.enhanced_api import router as enhanced_dashboard_router
 from src.realtime.streaming.api import router as streaming_router
 from src.realtime.websocket.api import router as websocket_router
+from src.performance.api import router as performance_router
+from src.analytics.api import router as analytics_router
 from src.cache.redis_client import ping_redis
 import os
 from dotenv import load_dotenv
@@ -21,7 +24,7 @@ load_dotenv()
 app = FastAPI(
     title="VeritasAI",
     description="An AI-powered platform designed to combat digital misinformation by verifying content authenticity and detecting deepfakes across various media types.",
-    version="0.3.0"
+    version="0.4.0"
 )
 
 # Include routers
@@ -30,8 +33,11 @@ app.include_router(content_router, prefix="/api/v1/content", tags=["content"])
 app.include_router(ai_router, prefix="/api/v1/ai", tags=["ai"])
 app.include_router(ml_router, prefix="/api/v1/ml", tags=["ml"])
 app.include_router(dashboard_router, prefix="/api/v1/dashboard", tags=["dashboard"])
+app.include_router(enhanced_dashboard_router, prefix="/api/v1/dashboard", tags=["enhanced-dashboard"])
 app.include_router(streaming_router, prefix="/api/v1/stream", tags=["streaming"])
 app.include_router(websocket_router, prefix="/api/v1/ws", tags=["websocket"])
+app.include_router(performance_router, prefix="/api/v1/performance", tags=["performance"])
+app.include_router(analytics_router, prefix="/api/v1/analytics", tags=["analytics"])
 
 # Root endpoint
 @app.get("/")
