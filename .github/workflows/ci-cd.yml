@@ -31,7 +31,7 @@ jobs:
     
     - name: Run tests
       run: |
-        pip install pytest
+        pip install pytest pytest-asyncio
         PYTHONPATH=. python -m pytest src/tests/ -v
     
     - name: Security scan
