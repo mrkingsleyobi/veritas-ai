@@ -82,12 +82,12 @@ jobs:
     - name: Run Dagger CI Pipeline with AI
       run: |
         dagger call -m ./dagger ci-pipeline-with-ai --gemini-api-key env:GOOGLE_API_KEY
-      env:
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
-        DATABASE_URL: sqlite:///:memory:
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
+          DATABASE_URL: sqlite:///:memory:
 
-  deploy-staging:
-    needs: [build, dagger-ci-ai]
+    deploy-staging:
+      needs: [build, dagger-ci-ai]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
