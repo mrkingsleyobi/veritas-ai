@@ -41,8 +41,8 @@ jobs:
         pip install bandit
         bandit -r src/ -ll
 
-  # Dagger-based CI pipeline (new)
-  dagger-ci:
+  # Dagger-based CI pipeline with AI enhancements
+  dagger-ci-ai:
     runs-on: ubuntu-latest
     
     steps:
@@ -71,15 +71,23 @@ jobs:
         pip install -r requirements.txt
         pip install dagger-io
     
-    - name: Run Dagger CI Pipeline
+    - name: Install AI dependencies
       run: |
-        dagger call -m ./dagger ci-pipeline
+        pip install google-generativeai safety pip-audit pytest-benchmark
+    
+    - name: Install Daggerverse modules
+      run: |
+        dagger call -m ./dagger install-daggerverse-modules
+    
+    - name: Run Dagger CI Pipeline with AI
+      run: |
+        dagger call -m ./dagger ci-pipeline-with-ai --gemini-api-key env:GOOGLE_API_KEY
       env:
-        # Add any required environment variables here
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
         DATABASE_URL: sqlite:///:memory:
 
   deploy-staging:
-    needs: [build, dagger-ci]
+    needs: [build, dagger-ci-ai]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
