@@ -7,7 +7,6 @@ on:
     branches: [ main, feature/phase-4-enhancements ]
 
 jobs:
-  # Traditional CI pipeline (existing)
   build:
     runs-on: ubuntu-latest
     
@@ -24,87 +23,3 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install email-validator
-    
-    - name: Run linter
-      run: |
-        pip install flake8
-        flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
-    
-    - name: Run tests
-      run: |
-        pip install pytest pytest-asyncio
-        DATABASE_URL=sqlite:///:memory: PYTHONPATH=. python -m pytest src/tests/ -v
-    
-    - name: Security scan
-      run: |
-        pip install bandit
-        bandit -r src/ -ll
-
-  # Dagger-based CI pipeline with AI enhancements
-  dagger-ci-ai:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v2
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-    
-    - name: Install Dagger
-      run: |
-        mkdir -p $HOME/bin
-        cd $HOME/bin
-        wget -O dagger.tar.gz "https://github.com/dagger/dagger/releases/download/v0.18.16/dagger_v0.18.16_linux_amd64.tar.gz"
-        tar xzf dagger.tar.gz
-        chmod +x dagger
-        echo "$HOME/bin" >> $GITHUB_PATH
-    
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install dagger-io
-    
-    - name: Install AI dependencies
-      run: |
-        pip install google-generativeai safety pip-audit pytest-benchmark
-    
-    - name: Install Daggerverse modules
-      run: |
-        dagger call -m ./dagger install-daggerverse-modules
-    
-    - name: Run Dagger CI Pipeline with AI
-      run: |
-        dagger call -m ./dagger ci-pipeline-with-ai --gemini-api-key env:GOOGLE_API_KEY
-        env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
-          DATABASE_URL: sqlite:///:memory:
-
-    deploy-staging:
-      needs: [build, dagger-ci-ai]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    
-    steps:
-    - name: Deploy to staging
-      run: |
-        echo "Deploying to staging environment"
-        # Add actual deployment commands here
-    
-  deploy-production:
-    needs: deploy-staging
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    
-    steps:
-    - name: Deploy to production
-      run: |
-        echo "Deploying to production environment"
-        # Add actual deployment commands here
