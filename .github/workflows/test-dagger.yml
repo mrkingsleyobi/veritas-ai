@@ -23,7 +23,7 @@ jobs:
       run: |
         mkdir -p $HOME/bin
         cd $HOME/bin
-        wget -O dagger.tar.gz "https://github.com/dagger/dagger/releases/latest/download/dagger_linux_amd64.tar.gz"
+        wget -O dagger.tar.gz "https://github.com/dagger/dagger/releases/download/v0.18.16/dagger_v0.18.16_linux_amd64.tar.gz"
         tar xzf dagger.tar.gz
         chmod +x dagger
         echo "$HOME/bin" >> $GITHUB_PATH
