@@ -21,11 +21,12 @@ jobs:
     
     - name: Install Dagger
       run: |
-        cd /usr/local
+        mkdir -p $HOME/bin
+        cd $HOME/bin
         wget -O dagger.tar.gz "https://github.com/dagger/dagger/releases/latest/download/dagger_linux_amd64.tar.gz"
         tar xzf dagger.tar.gz
         chmod +x dagger
-        echo "/usr/local" >> $GITHUB_PATH
+        echo "$HOME/bin" >> $GITHUB_PATH
     
     - name: Test Dagger installation
       run: |
