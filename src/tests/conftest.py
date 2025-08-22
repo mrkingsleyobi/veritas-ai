@@ -1,9 +1,15 @@
 """
 Test configuration for VeritasAI.
 """
+import sys
+import os
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+# Add src directory to Python path to fix import issues
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from src.database import Base
 from src.models.user import User
 from src.models.content import Content
