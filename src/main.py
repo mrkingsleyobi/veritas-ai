@@ -8,6 +8,8 @@ from src.api.content import router as content_router
 from src.ai.api import router as ai_router
 from src.ai.ml.api import router as ml_router
 from src.dashboard.api import router as dashboard_router
+from src.realtime.streaming.api import router as streaming_router
+from src.realtime.websocket.api import router as websocket_router
 from src.cache.redis_client import ping_redis
 import os
 from dotenv import load_dotenv
@@ -28,6 +30,8 @@ app.include_router(content_router, prefix="/api/v1/content", tags=["content"])
 app.include_router(ai_router, prefix="/api/v1/ai", tags=["ai"])
 app.include_router(ml_router, prefix="/api/v1/ml", tags=["ml"])
 app.include_router(dashboard_router, prefix="/api/v1/dashboard", tags=["dashboard"])
+app.include_router(streaming_router, prefix="/api/v1/stream", tags=["streaming"])
+app.include_router(websocket_router, prefix="/api/v1/ws", tags=["websocket"])
 
 # Root endpoint
 @app.get("/")
