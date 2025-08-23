@@ -64,6 +64,17 @@ This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Co
 - **Test-First**: Write tests before implementation
 - **Clean Architecture**: Separate concerns
 - **Documentation**: Keep updated
+- **Accessibility**: Follow WCAG 2.1 guidelines
+- **Responsive Design**: Mobile-first approach
+
+## Testing Guidelines
+
+- **Unit Tests**: Test individual components in isolation
+- **Integration Tests**: Test component interactions and workflows
+- **Accessibility Tests**: Use axe-core for automated accessibility audits
+- **Mocking**: Use jest mocks for external dependencies
+- **Async Testing**: Use waitFor and act for async operations
+- **Test Coverage**: Aim for 80% coverage across branches, functions, lines, and statements
 
 ## 🚀 Available Agents (54 Total)
 
