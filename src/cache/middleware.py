@@ -20,7 +20,7 @@ def cache_response(expire: int = 3600):
         @wraps(func)
         async def wrapper(*args, **kwargs) -> Any:
             # Generate cache key from function name and arguments
-            cache_key = f"{func.__name__}:{hashlib.md5(str(kwargs).encode()).hexdigest()}"
+            cache_key = f"{func.__name__}:{hashlib.sha256(str(kwargs).encode()).hexdigest()}"
             
             # Try to get cached response
             cached_response = cache_get(cache_key)
@@ -46,7 +46,7 @@ class CacheMiddleware:
         # Generate cache key from request
         cache_key = f"{self.cache_prefix}:{request.method}:{request.url.path}"
         if request.query_params:
-            cache_key += f":{hashlib.md5(str(request.query_params).encode()).hexdigest()}"
+            cache_key += f":{hashlib.sha256(str(request.query_params).encode()).hexdigest()}"
         
         # Try to get cached response for GET requests
         if request.method == "GET":

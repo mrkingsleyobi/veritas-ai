@@ -1,13 +1,14 @@
 """
 Authentication handlers for VeritasAI.
 """
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, WebSocket
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from src.database import get_db
 from src.models.user import User
 from src.auth.security import decode_access_token
 from typing import Optional
+import json
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -49,3 +50,23 @@ def get_current_active_user(current_user: User = Depends(get_current_user)):
     if not current_user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+
+
+async def get_current_user_from_websocket(websocket: WebSocket, db: Session):
+    """Get the current user from a WebSocket connection."""
+    try:
+        # Wait for the authentication message
+        data = await websocket.receive_text()
+        message = json.loads(data)
+        
+        if message.get("type") == "auth":
+            token = message.get("token")
+            if token:
+                token_data = decode_access_token(token)
+                if token_data:
+                    user = get_user(db, email=token_data.email)
+                    if user and user.is_active:
+                        return user
+        return None
+    except Exception:
+        return None
