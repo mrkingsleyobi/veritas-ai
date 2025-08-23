@@ -4,7 +4,7 @@ on:
   push:
     branches: [ feature/phase-4-enhancements ]
   pull_request:
-    branches: [ feature/phase-phase-4-enhancements ]
+    branches: [ feature/phase-4-enhancements ]
 
 jobs:
   test-dagger:

@@ -77,7 +77,7 @@ async def upload_content_from_url(
         storage_service = get_storage_service()
         
         # Download content from URL
-        response = requests.get(content_data.url)
+        response = requests.get(content_data.url, timeout=30)
         response.raise_for_status()
         
         # Get content type and filename
