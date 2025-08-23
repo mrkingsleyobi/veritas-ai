@@ -25,3 +25,4 @@ claude-flow.ps1
 hive-mind-prompt-*.txt
 __pycache__/
 *.pyc
+.claude-flow/
