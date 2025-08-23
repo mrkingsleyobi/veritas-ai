@@ -35,17 +35,42 @@ const ChartComponent = ({ type, data, options, title }) => {
       legend: {
         position: 'top',
         labels: {
-          // Increase font size for better readability
+          // Updated styling to match prototype
           font: {
-            size: 14,
+            size: 12,
+            family: '"Roboto", "Helvetica", "Arial", sans-serif',
           },
+          color: '#0f172a', // dark color from prototype
+          padding: 16,
+          usePointStyle: true,
+          pointStyle: 'circle',
         },
       },
       title: {
-        display: true,
-        text: title,
-        font: {
-          size: 16,
+        display: false, // We'll handle titles in the parent component
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: '#0f172a',
+          font: {
+            size: 12,
+          },
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+      },
+      y: {
+        ticks: {
+          color: '#0f172a',
+          font: {
+            size: 12,
+          },
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)',
         },
       },
     },
@@ -61,9 +86,38 @@ const ChartComponent = ({ type, data, options, title }) => {
       case 'bar':
         return <Bar data={data} options={chartOptions} />;
       case 'line':
-        return <Line data={data} options={chartOptions} />;
+        // Update line chart options for better styling
+        const lineOptions = {
+          ...chartOptions,
+          elements: {
+            line: {
+              borderWidth: 3,
+              tension: 0.4, // Smooth curves
+            },
+            point: {
+              radius: 4,
+              hoverRadius: 6,
+              backgroundColor: '#ffffff',
+              borderWidth: 2,
+            },
+          },
+          ...options,
+        };
+        return <Line data={data} options={lineOptions} />;
       case 'pie':
-        return <Pie data={data} options={chartOptions} />;
+        // Update pie chart options for better styling
+        const pieOptions = {
+          ...chartOptions,
+          plugins: {
+            ...chartOptions.plugins,
+            legend: {
+              ...chartOptions.plugins.legend,
+              position: 'right',
+            },
+          },
+          ...options,
+        };
+        return <Pie data={data} options={pieOptions} />;
       default:
         return <Bar data={data} options={chartOptions} />;
     }
@@ -71,13 +125,10 @@ const ChartComponent = ({ type, data, options, title }) => {
 
   return (
     <div 
-      style={{ height: '400px', width: '100%' }}
+      style={{ height: '300px', width: '100%' }}
       role="img" 
       aria-label={`${title} chart`}
     >
-      <div style={{ textAlign: 'center', marginBottom: '10px', fontSize: '16px', fontWeight: 'bold' }}>
-        {title}
-      </div>
       {renderChart()}
     </div>
   );
