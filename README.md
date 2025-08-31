@@ -1,6 +1,7 @@
 # VeritasAI
 
 An AI-powered platform designed to combat digital misinformation by verifying content authenticity and detecting deepfakes across various media types.
+![Alt](https://repobeats.axiom.co/api/embed/9a393c4995b2fabcd3af0c50f1a6fa07c287d91a.svg "Repobeats analytics image")
 
 [![CI/CD](https://github.com/mrkingsleyobi/veritas-ai/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/mrkingsleyobi/veritas-ai/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
