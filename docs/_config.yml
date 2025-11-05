@@ -1,0 +1,59 @@
+# Jekyll configuration for GitHub Pages documentation
+title: Veritas AI Documentation
+description: Comprehensive documentation for the Veritas AI Content Authenticity and Deepfake Detection platform
+baseurl: "/veritas-ai"
+url: "https://docs.veritas-ai.com"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Theme
+remote_theme: pmarsceill/just-the-docs
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sitemap
+
+# Just the Docs settings
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s/]+/
+  rel_url: true
+  button: false
+
+# Aux links for the upper right navigation
+aux_links:
+  "Veritas AI Platform":
+    - "//veritas-ai.com"
+
+# Footer content
+footer_content: "Copyright &copy; 2025 Veritas AI. Distributed under the MIT License."
+
+# Color scheme
+color_scheme: light
+
+# Navigation
+navigation:
+  header: true
+  footer: true
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "docs"
+    values:
+      layout: "default"

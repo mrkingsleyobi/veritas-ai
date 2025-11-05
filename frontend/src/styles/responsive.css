@@ -1,0 +1,401 @@
+/* Responsive Grid System and Utilities */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom responsive grid utilities */
+.grid-container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--space-sm);
+  padding-left: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .grid-container {
+    max-width: 640px;
+    padding-right: var(--space-md);
+    padding-left: var(--space-md);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    max-width: 1024px;
+    padding-right: var(--space-lg);
+    padding-left: var(--space-lg);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .grid-container {
+    max-width: 1536px;
+    padding-right: var(--space-xl);
+    padding-left: var(--space-xl);
+  }
+}
+
+/* Responsive grid gaps */
+.grid-gap-xs { gap: var(--space-xs); }
+.grid-gap-sm { gap: var(--space-sm); }
+.grid-gap-md { gap: var(--space-md); }
+.grid-gap-lg { gap: var(--space-lg); }
+.grid-gap-xl { gap: var(--space-xl); }
+
+/* Responsive card layouts */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .card-grid-md-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-grid-md-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid-lg-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-grid-lg-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card-grid-lg-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Responsive form layouts */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .form-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Responsive table layouts */
+.responsive-table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsive-table th,
+.responsive-table td {
+  padding: var(--space-sm);
+  text-align: left;
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+}
+
+@media (max-width: 767px) {
+  .responsive-table-stack th,
+  .responsive-table-stack td {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .responsive-table-stack th::before,
+  .responsive-table-stack td::before {
+    content: attr(data-label) ": ";
+    position: absolute;
+    left: var(--space-sm);
+    width: 45%;
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+/* Responsive utility classes */
+.hide-mobile {
+  display: none;
+}
+
+.show-mobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: block;
+  }
+
+  .show-mobile {
+    display: none;
+  }
+
+  .hide-tablet {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-tablet {
+    display: block;
+  }
+
+  .hide-desktop {
+    display: none;
+  }
+}
+
+/* Responsive typography */
+.responsive-heading {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+}
+
+@media (min-width: 768px) {
+  .responsive-heading {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-heading {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+.responsive-text {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+@media (min-width: 768px) {
+  .responsive-text {
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-relaxed);
+  }
+}
+
+/* Responsive padding and margin utilities */
+.py-responsive {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+
+.px-responsive {
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .py-responsive {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .px-responsive {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .py-responsive {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+
+  .px-responsive {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+/* Responsive flex utilities */
+.flex-responsive {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .flex-responsive {
+    flex-direction: row;
+  }
+}
+
+/* Responsive sidebar layouts */
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+  .sidebar-layout {
+    grid-template-columns: 250px 1fr;
+  }
+
+  .sidebar-layout-reverse {
+    grid-template-columns: 1fr 250px;
+  }
+}
+
+/* Responsive card components */
+.responsive-card {
+  border-radius: var(--border-radius-md);
+  padding: var(--space-md);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-normal) var(--timing-function-standard);
+}
+
+.responsive-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 767px) {
+  .responsive-card {
+    padding: var(--space-sm);
+  }
+}
+
+/* Responsive button groups */
+.button-group-responsive {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.button-group-responsive .btn {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .button-group-responsive {
+    flex-direction: row;
+  }
+
+  .button-group-responsive .btn {
+    width: auto;
+  }
+}
+
+/* Responsive modal dialogs */
+.modal-responsive {
+  margin: var(--space-sm);
+  max-height: calc(100vh - var(--space-md));
+}
+
+@media (min-width: 768px) {
+  .modal-responsive {
+    margin: var(--space-lg) auto;
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal-responsive {
+    max-width: 600px;
+  }
+}
+
+/* Responsive navigation */
+.nav-responsive {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .nav-responsive {
+    flex-direction: row;
+  }
+}
+
+/* Responsive image galleries */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xs);
+}
+
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+/* Responsive dashboard layouts */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dashboard-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Responsive chart containers */
+.chart-container {
+  height: 300px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .chart-container {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chart-container {
+    height: 500px;
+  }
+}

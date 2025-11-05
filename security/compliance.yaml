@@ -1,0 +1,82 @@
+# Security Compliance Configuration
+
+## Security Scanning with Trivy
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: trivy-scan
+  namespace: veritas-ai
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: trivy
+            image: aquasec/trivy:latest
+            command:
+            - trivy
+            - image
+            - --exit-code
+            - "1"
+            - --severity
+            - "CRITICAL,HIGH"
+            - veritas-ai:latest
+          restartPolicy: OnFailure
+
+---
+## Image Pull Secret Policy
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: veritas-ai-image-policy
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: true
+  allowedHostPaths:
+    - pathPrefix: "/var/run/docker.sock"
+      readOnly: true
+
+---
+## Audit Logging
+apiVersion: audit.k8s.io/v1
+kind: Policy
+metadata:
+  name: veritas-ai-audit-policy
+rules:
+- level: Metadata
+  resources:
+  - group: ""
+    resources: ["pods", "services", "deployments"]
+  - group: "apps"
+    resources: ["deployments", "replicasets"]
+  - group: "networking.k8s.io"
+    resources: ["networkpolicies"]

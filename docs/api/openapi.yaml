@@ -1,0 +1,563 @@
+openapi: 3.0.0
+info:
+  title: Content Authenticity and Deepfake Detection API
+  description: |
+    AI-powered platform for verifying the authenticity of digital content including images, videos, and documents.
+    The platform uses advanced detection algorithms enhanced with RUV (Reputation, Uniqueness, Verification) profile fusion.
+  version: 1.0.0
+  contact:
+    name: Veritas AI Support
+    email: support@veritas-ai.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.veritas-ai.com/v1
+    description: Production server
+  - url: https://staging.api.veritas-ai.com/v1
+    description: Staging server
+  - url: http://localhost:3000/v1
+    description: Development server
+
+tags:
+  - name: authentication
+    description: Authentication and authorization endpoints
+  - name: content
+    description: Content verification and analysis endpoints
+  - name: profiles
+    description: RUV profile management endpoints
+  - name: batch
+    description: Batch processing endpoints
+  - name: analytics
+    description: Analytics and reporting endpoints
+
+paths:
+  /auth/token:
+    post:
+      tags:
+        - authentication
+      summary: Generate authentication token
+      description: |
+        Generate a JWT token for API access. Requires valid credentials.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: User's username or email
+                password:
+                  type: string
+                  format: password
+                  description: User's password
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT token for API access
+                  expires_in:
+                    type: integer
+                    description: Token expiration time in seconds
+              example:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                expires_in: 3600
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+              example:
+                error: "Invalid credentials"
+
+  /verify:
+    post:
+      tags:
+        - content
+      summary: Verify content authenticity
+      description: |
+        Submit content for authenticity verification. Supports images, videos, and documents.
+        Returns detailed analysis results with confidence scores.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  format: byte
+                  description: Base64 encoded content data
+                content_type:
+                  type: string
+                  enum: [image, video, document]
+                  description: Type of content being verified
+                filename:
+                  type: string
+                  description: Original filename (optional)
+                metadata:
+                  type: object
+                  description: Additional metadata (optional)
+              required:
+                - content
+                - content_type
+      responses:
+        '200':
+          description: Verification successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResult'
+              example:
+                id: "verification_12345"
+                content_id: "content_67890"
+                authentic: true
+                confidence: 0.95
+                details:
+                  method: "image_analysis"
+                  metadata_present: true
+                  compression_artifacts: false
+                  file_size: 2048000
+                metadata:
+                  timestamp: "2023-01-01T12:00:00Z"
+                  content_length: 2048000
+                ruv_profile:
+                  reputation: 0.85
+                  uniqueness: 0.92
+                  verification: 0.95
+                  fusion_score: 0.90
+                created_at: "2023-01-01T12:00:00Z"
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Invalid content: type and data are required"
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Authentication required"
+        '413':
+          description: Content too large
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Content exceeds maximum size limit"
+
+  /verify/{contentId}:
+    get:
+      tags:
+        - content
+      summary: Get verification result
+      description: |
+        Retrieve a previously generated verification result by content ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: contentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the content
+      responses:
+        '200':
+          description: Verification result retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResult'
+        '404':
+          description: Verification result not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Verification result not found"
+
+  /profiles:
+    post:
+      tags:
+        - profiles
+      summary: Create or update RUV profile
+      description: |
+        Create or update a RUV (Reputation, Uniqueness, Verification) profile for content.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content_id:
+                  type: string
+                  description: Unique identifier for the content
+                ruv_data:
+                  type: object
+                  properties:
+                    reputation:
+                      type: number
+                      format: float
+                      minimum: 0
+                      maximum: 1
+                      description: Reputation score
+                    uniqueness:
+                      type: number
+                      format: float
+                      minimum: 0
+                      maximum: 1
+                      description: Uniqueness score
+                    verification:
+                      type: number
+                      format: float
+                      minimum: 0
+                      maximum: 1
+                      description: Verification score
+                  required:
+                    - reputation
+                    - uniqueness
+                    - verification
+              required:
+                - content_id
+                - ruv_data
+      responses:
+        '200':
+          description: Profile created or updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RUVProfile'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /profiles/{contentId}:
+    get:
+      tags:
+        - profiles
+      summary: Get RUV profile
+      description: |
+        Retrieve the RUV profile for specific content by content ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: contentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the content
+      responses:
+        '200':
+          description: RUV profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RUVProfile'
+        '404':
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Profile not found"
+
+  /batch/verify:
+    post:
+      tags:
+        - batch
+      summary: Batch verify content
+      description: |
+        Submit multiple content items for authenticity verification in a single request.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contents:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Client-provided identifier for the content
+                      content:
+                        type: string
+                        format: byte
+                        description: Base64 encoded content data
+                      content_type:
+                        type: string
+                        enum: [image, video, document]
+                        description: Type of content being verified
+                      filename:
+                        type: string
+                        description: Original filename (optional)
+                      metadata:
+                        type: object
+                        description: Additional metadata (optional)
+                    required:
+                      - content
+                      - content_type
+              required:
+                - contents
+      responses:
+        '200':
+          description: Batch verification completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BatchVerificationResult'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /analytics/accuracy:
+    get:
+      tags:
+        - analytics
+      summary: Get accuracy metrics
+      description: |
+        Retrieve platform accuracy metrics including precision, recall, and F1-score.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: start_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Start date for metrics (YYYY-MM-DD)
+        - name: end_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: End date for metrics (YYYY-MM-DD)
+      responses:
+        '200':
+          description: Accuracy metrics retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  precision:
+                    type: number
+                    format: float
+                  recall:
+                    type: number
+                    format: float
+                  f1_score:
+                    type: number
+                    format: float
+                  accuracy:
+                    type: number
+                    format: float
+                  total_verifications:
+                    type: integer
+        '401':
+          description: Authentication required
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    VerificationResult:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the verification result
+        content_id:
+          type: string
+          description: Unique identifier for the content
+        authentic:
+          type: boolean
+          description: Whether the content is authentic
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score (0-1)
+        details:
+          type: object
+          description: Detailed analysis results
+          properties:
+            method:
+              type: string
+              description: Analysis method used
+            metadata_present:
+              type: boolean
+              description: Whether metadata was present
+            compression_artifacts:
+              type: boolean
+              description: Whether compression artifacts were detected
+            file_size:
+              type: integer
+              description: Size of the content in bytes
+        metadata:
+          type: object
+          description: Metadata about the verification
+          properties:
+            timestamp:
+              type: string
+              format: date-time
+              description: Timestamp of verification
+            content_length:
+              type: integer
+              description: Length of content in bytes
+        ruv_profile:
+          $ref: '#/components/schemas/RUVProfile'
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the result was created
+
+    RUVProfile:
+      type: object
+      properties:
+        content_id:
+          type: string
+          description: Unique identifier for the content
+        reputation:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Reputation score
+        uniqueness:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Uniqueness score
+        verification:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Verification score
+        fusion_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Combined RUV fusion score
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              reputation:
+                type: number
+                format: float
+              uniqueness:
+                type: number
+                format: float
+              verification:
+                type: number
+                format: float
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    BatchVerificationResult:
+      type: object
+      properties:
+        content_id:
+          type: string
+          description: Client-provided identifier for the content
+        authentic:
+          type: boolean
+          description: Whether the content is authentic
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score (0-1)
+        error:
+          type: string
+          description: Error message if verification failed

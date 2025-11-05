@@ -1,0 +1,282 @@
+.comparison-view {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.comparison-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.comparison-header h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.25rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.comparison-tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background-color: transparent;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+.tab-btn.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}
+
+.side-by-side-view {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+}
+
+.media-column {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-column h3 {
+  margin: 0 0 1rem 0;
+  color: #334155;
+  font-size: 1rem;
+}
+
+.media-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.comparison-media {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.media-name {
+  text-align: center;
+  margin: 1rem 0 0 0;
+  color: #64748b;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.highlight-overlay {
+  position: absolute;
+  border: 2px solid #ef4444;
+  background-color: rgba(239, 68, 68, 0.2);
+  pointer-events: none;
+}
+
+.highlight-info {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: #ef4444;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.confidence-badge {
+  font-weight: 600;
+}
+
+.overlay-view {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay-controls {
+  margin-bottom: 1rem;
+}
+
+.overlay-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #334155;
+  font-size: 0.875rem;
+}
+
+.overlay-controls input {
+  flex: 1;
+}
+
+.overlay-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.base-media,
+.overlay-media {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  object-fit: contain;
+}
+
+.details-view {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.analysis-summary {
+  margin-bottom: 1.5rem;
+}
+
+.analysis-summary h3 {
+  margin: 0 0 1rem 0;
+  color: #334155;
+  font-size: 1rem;
+}
+
+.confidence-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.score-label {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.metric-label {
+  color: #64748b;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.highlights-section h4 {
+  margin: 0 0 1rem 0;
+  color: #334155;
+  font-size: 1rem;
+}
+
+.highlights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.highlight-item {
+  padding: 0.75rem;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  border-left: 3px solid #ef4444;
+}
+
+.highlight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.highlight-confidence {
+  font-weight: 600;
+  color: #ef4444;
+  font-size: 0.875rem;
+}
+
+.highlight-description {
+  margin: 0;
+  color: #334155;
+  font-size: 0.875rem;
+}

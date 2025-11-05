@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom styles */
+@import './theme.css';
+@import './responsive.css';
+@import './accessibility.css';
+@import './performance.css';
+@import './print.css';
+@import './compatibility.css';
+@import './touch.css';
+@import './theme-toggle.css';
+@import './progressive-enhancement.css';
+
+/* Custom styles can be added here */
+body {
+  @apply bg-gray-50 dark:bg-gray-900;
+  font-family: var(--font-family-primary);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* Responsive sidebar toggle */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    @apply block;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Dark mode overrides */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  @apply bg-gray-900;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  @apply text-white;
+}
+
+.dark p, .dark span, .dark div {
+  @apply text-gray-300;
+}
+
+.dark a {
+  @apply text-blue-400;
+}
+
+.dark a:hover {
+  @apply text-blue-300;
+}
+
+/* Focus styles for accessibility */
+.focus-ring {
+  outline: 2px solid var(--ring-color);
+  outline-offset: 2px;
+}
+
+/* Touch target minimums */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Theme transition */
+.theme-transition {
+  transition: background-color 300ms ease,
+              color 300ms ease,
+              border-color 300ms ease;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

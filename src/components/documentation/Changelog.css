@@ -1,0 +1,301 @@
+.changelog {
+  padding: 20px 0;
+}
+
+.changelog-header {
+  margin-bottom: 30px;
+}
+
+.changelog-header h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.changelog-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.changelog-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.version-selector {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.version-selector h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.versions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.version-item {
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.version-item:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+.version-item.active {
+  border-color: #007bff;
+  background: #e3f2fd;
+}
+
+.version-item.latest {
+  border-left: 4px solid #28a745;
+}
+
+.version-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.version-number {
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  color: #007bff;
+  font-size: 1.1rem;
+}
+
+.version-status {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.version-status.latest {
+  background: #28a745;
+  color: white;
+}
+
+.version-date {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.version-description {
+  color: #495057;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.version-details {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.version-details-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.version-details-header h3 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.version-meta {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.version-date {
+  color: #6c757d;
+}
+
+.version-overview {
+  color: #495057;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.version-changes {
+  margin-bottom: 30px;
+}
+
+.version-changes h4 {
+  margin: 25px 0 15px 0;
+}
+
+.version-changes ul {
+  padding-left: 20px;
+  margin: 0 0 25px 0;
+}
+
+.version-changes li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #495057;
+}
+
+.version-upgrade-notes {
+  background: #fff3cd;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #ffc107;
+}
+
+.version-upgrade-notes h4 {
+  color: #856404;
+  margin-top: 0;
+}
+
+.version-upgrade-notes p {
+  color: #856404;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.upgrade-steps h5 {
+  color: #856404;
+  margin-bottom: 10px;
+}
+
+.upgrade-steps ol {
+  padding-left: 20px;
+  color: #856404;
+  margin-top: 0;
+}
+
+.upgrade-steps li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.compatibility-notice h5 {
+  color: #856404;
+  margin-bottom: 10px;
+}
+
+.compatibility-notice p {
+  margin: 0;
+}
+
+.changelog-subscription {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.changelog-subscription h3 {
+  color: #2c3e50;
+  margin-top: 0;
+}
+
+.changelog-subscription p {
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.subscription-form {
+  display: flex;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  gap: 10px;
+}
+
+.subscription-form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.subscription-form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.subscribe-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.subscribe-button:hover {
+  background: #0056b3;
+}
+
+.subscription-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: #495057;
+}
+
+.subscription-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.subscription-options input {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .changelog-content {
+    grid-template-columns: 1fr;
+  }
+
+  .version-selector {
+    max-height: 300px;
+  }
+
+  .subscription-form {
+    flex-direction: column;
+  }
+
+  .subscription-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .version-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

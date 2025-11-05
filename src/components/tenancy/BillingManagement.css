@@ -1,0 +1,381 @@
+.billing-management {
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.upgrade-btn {
+  padding: 10px 16px;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upgrade-btn:hover {
+  background: #0061d6;
+}
+
+.billing-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.current-plan, .payment-methods {
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.current-plan h3, .payment-methods h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.plan-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.plan-name .plan-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.plan-price {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.period {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.plan-expires {
+  font-size: 14px;
+  color: #666666;
+}
+
+.payment-methods-list {
+  margin-bottom: 16px;
+}
+
+.payment-method {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.payment-method:last-child {
+  border-bottom: none;
+}
+
+.payment-method-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-type {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.payment-expiry {
+  font-size: 12px;
+  color: #666666;
+}
+
+.default-badge {
+  padding: 4px 8px;
+  background: #e6fffa;
+  color: #00856a;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.add-payment-btn {
+  padding: 8px 12px;
+  background: #ffffff;
+  color: #0070f3;
+  border: 1px solid #e1e5e9;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-payment-btn:hover {
+  background: #f0f7ff;
+}
+
+.invoices-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.invoices-table-container {
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 32px;
+}
+
+.invoices-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoices-table thead {
+  background: #f6f8fa;
+}
+
+.invoices-table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.invoices-table td {
+  padding: 16px 20px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-paid {
+  background: #e6fffa;
+  color: #00856a;
+}
+
+.status-pending {
+  background: #fff5e6;
+  color: #d67e00;
+}
+
+.status-failed {
+  background: #ffefef;
+  color: #e00;
+}
+
+.download-btn {
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #0070f3;
+  border: 1px solid #e1e5e9;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.download-btn:hover {
+  background: #f0f7ff;
+}
+
+.billing-placeholder {
+  padding: 24px;
+  text-align: center;
+  color: #666666;
+  font-style: italic;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666666;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.plan-card {
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.plan-card:hover {
+  border-color: #0070f3;
+  box-shadow: 0 4px 12px rgba(0, 118, 255, 0.1);
+}
+
+.plan-card.selected {
+  border-color: #0070f3;
+  background: #f0f7ff;
+  box-shadow: 0 4px 12px rgba(0, 118, 255, 0.1);
+}
+
+.plan-header {
+  margin-bottom: 20px;
+}
+
+.plan-header h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.plan-price {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.feature, .limitation {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #111111;
+}
+
+.feature .check {
+  color: #00856a;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.limitation .cross {
+  color: #e00;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 0 20px 20px;
+}
+
+.cancel-btn, .confirm-btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cancel-btn {
+  background: #f6f8fa;
+  color: #111111;
+  border: 1px solid #e1e5e9;
+}
+
+.cancel-btn:hover {
+  background: #e1e5e9;
+}
+
+.confirm-btn {
+  background: #0070f3;
+  color: white;
+  border: none;
+}
+
+.confirm-btn:hover {
+  background: #0061d6;
+}

@@ -1,0 +1,565 @@
+/* Print Styles for Reports and Documentation */
+
+/* Basic print reset */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Hide non-essential elements */
+  .no-print,
+  button,
+  .btn,
+  .nav-container,
+  .sidebar,
+  .mobile-menu,
+  .theme-toggle,
+  .skip-link,
+  .breadcrumb,
+  .pagination,
+  .filter-controls,
+  .action-buttons,
+  .form-controls,
+  .interactive-elements,
+  .notification-badge,
+  .tooltip,
+  .modal,
+  .dropdown,
+  .tabs,
+  .accordion-button::after {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+
+  .print-only-inline {
+    display: inline !important;
+  }
+
+  /* Page layout */
+  @page {
+    margin: 2cm;
+  }
+
+  /* Page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  .page-break-inside-avoid {
+    page-break-inside: avoid;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    background: none !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1 {
+    font-size: 24pt;
+    margin: 0 0 12pt 0;
+  }
+
+  h2 {
+    font-size: 20pt;
+    margin: 18pt 0 10pt 0;
+  }
+
+  h3 {
+    font-size: 18pt;
+    margin: 16pt 0 8pt 0;
+  }
+
+  h4 {
+    font-size: 16pt;
+    margin: 14pt 0 6pt 0;
+  }
+
+  h5 {
+    font-size: 14pt;
+    margin: 12pt 0 4pt 0;
+  }
+
+  h6 {
+    font-size: 12pt;
+    margin: 10pt 0 2pt 0;
+  }
+
+  /* Paragraphs and text */
+  p {
+    margin: 0 0 10pt 0;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 0 0 10pt 0;
+    padding-left: 20pt;
+  }
+
+  li {
+    margin-bottom: 4pt;
+  }
+
+  /* Definition lists */
+  dl {
+    margin: 0 0 10pt 0;
+  }
+
+  dt {
+    font-weight: bold;
+    margin-top: 8pt;
+  }
+
+  dd {
+    margin-left: 20pt;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    margin: 10pt 0;
+    padding: 8pt 12pt;
+    border-left: 3pt solid #000;
+    font-style: italic;
+  }
+
+  /* Code blocks */
+  code, pre {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10pt;
+    background: none !important;
+    border: 1pt solid #000;
+    padding: 4pt;
+    margin: 4pt 0;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    padding: 8pt;
+    page-break-inside: avoid;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10pt 0;
+    page-break-inside: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  th, td {
+    border: 1pt solid #000;
+    padding: 6pt;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: bold;
+    background: none !important;
+  }
+
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 6pt;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+
+  /* Figures */
+  figure {
+    margin: 10pt 0;
+    page-break-inside: avoid;
+  }
+
+  figcaption {
+    font-size: 10pt;
+    font-style: italic;
+    margin-top: 6pt;
+  }
+
+  /* Links */
+  a {
+    color: #000 !important;
+    text-decoration: underline !important;
+    background: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    word-break: break-all;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  /* Abbreviations */
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  /* Forms (should be hidden but just in case) */
+  input, textarea, select {
+    border: 1pt solid #000;
+    background: #fff !important;
+  }
+
+  /* Cards and containers */
+  .card,
+  .panel,
+  .well,
+  .alert {
+    border: 1pt solid #000;
+    padding: 10pt;
+    margin: 10pt 0;
+    background: none !important;
+  }
+
+  /* Utility classes */
+  .text-center {
+    text-align: center;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .text-left {
+    text-align: left;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+  .text-italic {
+    font-style: italic;
+  }
+
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+
+  .text-lowercase {
+    text-transform: lowercase;
+  }
+
+  /* Spacing utilities */
+  .mt-0 { margin-top: 0 !important; }
+  .mr-0 { margin-right: 0 !important; }
+  .mb-0 { margin-bottom: 0 !important; }
+  .ml-0 { margin-left: 0 !important; }
+
+  .pt-0 { padding-top: 0 !important; }
+  .pr-0 { padding-right: 0 !important; }
+  .pb-0 { padding-bottom: 0 !important; }
+  .pl-0 { padding-left: 0 !important; }
+
+  /* Visibility utilities */
+  .hidden-print {
+    display: none !important;
+  }
+
+  .visible-print {
+    display: block !important;
+  }
+
+  .visible-print-inline {
+    display: inline !important;
+  }
+
+  .visible-print-inline-block {
+    display: inline-block !important;
+  }
+
+  /* Report specific styles */
+  .report-header {
+    text-align: center;
+    margin-bottom: 20pt;
+    border-bottom: 2pt solid #000;
+    padding-bottom: 10pt;
+  }
+
+  .report-title {
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 0 0 10pt 0;
+  }
+
+  .report-subtitle {
+    font-size: 16pt;
+    margin: 0 0 10pt 0;
+  }
+
+  .report-meta {
+    font-size: 12pt;
+    margin: 0 0 10pt 0;
+  }
+
+  .report-section {
+    margin: 20pt 0;
+  }
+
+  .report-footer {
+    margin-top: 30pt;
+    padding-top: 10pt;
+    border-top: 1pt solid #000;
+    font-size: 10pt;
+    text-align: center;
+  }
+
+  /* Chart containers (for printed charts) */
+  .chart-container {
+    page-break-inside: avoid;
+    margin: 10pt 0;
+  }
+
+  .chart-title {
+    font-weight: bold;
+    margin-bottom: 8pt;
+    text-align: center;
+  }
+
+  /* Data visualization */
+  .data-table {
+    font-size: 10pt;
+  }
+
+  .data-table th {
+    background: #f0f0f0 !important;
+  }
+
+  /* Signature areas */
+  .signature-line {
+    margin: 30pt 0;
+    padding-top: 10pt;
+    border-top: 1pt solid #000;
+    text-align: center;
+  }
+
+  /* Page numbers (requires JavaScript to populate) */
+  .page-number::after {
+    content: "Page " counter(page);
+    position: fixed;
+    bottom: 1cm;
+    right: 1cm;
+  }
+
+  /* Cover page */
+  .cover-page {
+    text-align: center;
+    page-break-after: always;
+  }
+
+  .cover-title {
+    font-size: 36pt;
+    font-weight: bold;
+    margin: 60pt 0 20pt 0;
+  }
+
+  .cover-subtitle {
+    font-size: 20pt;
+    margin: 20pt 0;
+  }
+
+  .cover-date {
+    font-size: 16pt;
+    margin: 40pt 0 20pt 0;
+  }
+
+  /* Table of contents */
+  .toc {
+    page-break-after: always;
+  }
+
+  .toc-title {
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 0 0 20pt 0;
+    text-align: center;
+  }
+
+  .toc-item {
+    margin: 8pt 0;
+  }
+
+  .toc-item a::after {
+    content: leader('.') target-counter(attr(href), page);
+  }
+
+  /* Index */
+  .index {
+    column-count: 2;
+    column-gap: 20pt;
+  }
+
+  .index-entry {
+    margin: 4pt 0;
+  }
+
+  /* Footnotes */
+  .footnote {
+    font-size: 10pt;
+    margin: 10pt 0;
+  }
+
+  .footnote-ref {
+    vertical-align: super;
+    font-size: 8pt;
+  }
+
+  /* Cross-references */
+  .cross-reference::after {
+    content: " (see page " target-counter(attr(href), page) ")";
+  }
+
+  /* Watermark (requires additional CSS support) */
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    opacity: 0.1;
+    font-size: 72pt;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Document properties */
+  .document-properties {
+    font-size: 10pt;
+    margin: 20pt 0;
+    border: 1pt solid #000;
+    padding: 10pt;
+  }
+
+  .document-properties dt {
+    font-weight: bold;
+    margin-top: 6pt;
+  }
+
+  .document-properties dd {
+    margin-left: 0;
+  }
+
+  /* Print optimization for specific components */
+  .print-optimized-card {
+    border: 1pt solid #000;
+    padding: 12pt;
+    margin: 12pt 0;
+    box-shadow: none !important;
+  }
+
+  .print-optimized-list {
+    list-style-position: inside;
+    padding-left: 0;
+  }
+
+  .print-optimized-list li {
+    margin-bottom: 6pt;
+  }
+
+  /* Print-friendly colors */
+  .print-black {
+    color: #000 !important;
+  }
+
+  .print-gray {
+    color: #666 !important;
+  }
+
+  /* Reduced spacing for print */
+  .print-condensed {
+    line-height: 1.2;
+  }
+
+  .print-tight {
+    line-height: 1.1;
+  }
+
+  /* Font sizing for print */
+  .print-small {
+    font-size: 10pt;
+  }
+
+  .print-medium {
+    font-size: 12pt;
+  }
+
+  .print-large {
+    font-size: 14pt;
+  }
+
+  /* Print margins */
+  .print-margin-none {
+    margin: 0 !important;
+  }
+
+  .print-padding-none {
+    padding: 0 !important;
+  }
+
+  /* Print borders */
+  .print-border {
+    border: 1pt solid #000 !important;
+  }
+
+  .print-border-top {
+    border-top: 1pt solid #000 !important;
+  }
+
+  .print-border-bottom {
+    border-bottom: 1pt solid #000 !important;
+  }
+
+  .print-border-left {
+    border-left: 1pt solid #000 !important;
+  }
+
+  .print-border-right {
+    border-right: 1pt solid #000 !important;
+  }
+}

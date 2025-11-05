@@ -1,0 +1,17 @@
+# Prometheus Monitoring Configuration
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: veritas-ai-monitor
+  namespace: veritas-ai
+  labels:
+    app: veritas-ai
+spec:
+  selector:
+    matchLabels:
+      app: veritas-ai
+  endpoints:
+  - port: http
+    interval: 30s
+    path: /metrics

@@ -1,0 +1,119 @@
+/* Search functionality styles */
+.search-container {
+    position: relative;
+    margin: 20px 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: white;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+#searchResults {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+#searchResults a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.2s ease;
+}
+
+#searchResults a:hover {
+    background-color: #f8fafc;
+}
+
+#searchResults a:last-child {
+    border-bottom: none;
+}
+
+#searchResults .result-title {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+#searchResults .result-content {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+#searchResults .result-url {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 5px;
+}
+
+#searchHint {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .search-container {
+        margin: 15px 0;
+    }
+
+    .search-input {
+        padding: 10px 15px 10px 35px;
+        font-size: 0.9rem;
+    }
+
+    .search-icon {
+        left: 12px;
+        font-size: 0.9rem;
+    }
+
+    #searchResults {
+        left: 10px;
+        right: 10px;
+        max-height: 300px;
+    }
+}

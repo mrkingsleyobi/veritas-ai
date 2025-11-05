@@ -1,0 +1,403 @@
+/* Performance Optimizations for Mobile Devices */
+
+/* Critical CSS for above-the-fold content */
+.critical-css {
+  /* Styles loaded inline for immediate rendering */
+}
+
+/* CSS Containment */
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-size {
+  contain: size;
+}
+
+.contain-style {
+  contain: style;
+}
+
+.contain-all {
+  contain: layout paint size style;
+}
+
+/* Will-change hints for animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+/* Hardware acceleration utilities */
+.accelerate {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.accelerate-3d {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.perspective {
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Optimized animations */
+.optimized-animation {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.optimized-transition {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .optimized-animation,
+  .optimized-transition {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .no-motion {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Lazy loading utilities */
+.lazy-load {
+  opacity: 0;
+  transition: opacity var(--transition-normal) var(--timing-function-standard);
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+}
+
+/* Image optimization */
+.optimized-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.optimized-img-contain {
+  object-fit: contain;
+}
+
+.optimized-img-cover {
+  object-fit: cover;
+}
+
+.optimized-img-placeholder {
+  background-color: var(--color-background-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.optimized-img-placeholder::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Font loading optimization */
+.font-loading {
+  font-display: swap;
+}
+
+.font-loading-optional {
+  font-display: optional;
+}
+
+.font-loading-fallback {
+  font-display: fallback;
+}
+
+/* Scroll performance */
+.optimized-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.optimized-scroll-y {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.optimized-scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Touch scrolling optimizations */
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-snap {
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+}
+
+/* Memory management */
+.memory-efficient {
+  /* Remove expensive properties that cause repaints */
+  box-shadow: none;
+  filter: none;
+  backdrop-filter: none;
+}
+
+/* Reduced data usage for slow connections */
+@media (max-width: 767px) {
+  .data-heavy {
+    display: none;
+  }
+}
+
+/* Battery saving mode */
+@media (prefers-reduced-data: reduce) {
+  .data-heavy {
+    display: none;
+  }
+}
+
+/* Battery saving mode for devices */
+@media (prefers-reduced-battery: reduce) {
+  .battery-heavy {
+    display: none;
+  }
+
+  .optimized-animation,
+  .optimized-transition {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Progressive enhancement for older browsers */
+.progressive-enhancement .enhanced-feature {
+  /* Base styles for older browsers */
+}
+
+@supports (display: grid) {
+  .progressive-enhancement .enhanced-feature {
+    /* Enhanced styles for modern browsers */
+  }
+}
+
+@supports (display: flex) {
+  .progressive-enhancement .flex-feature {
+    /* Flexbox enhancements */
+  }
+}
+
+/* Media optimization */
+.optimized-media {
+  /* Default to lightweight media */
+}
+
+.optimized-media video {
+  /* Optimize video loading */
+  preload: metadata;
+}
+
+.optimized-media img {
+  /* Optimize image loading */
+  loading: lazy;
+}
+
+/* Network-aware loading */
+.network-slow .heavy-assets {
+  display: none;
+}
+
+.network-fast .light-assets {
+  /* Enhanced features for fast networks */
+}
+
+/* Component-level optimizations */
+
+/* Card optimizations */
+.optimized-card {
+  contain: layout style paint;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.optimized-card:hover {
+  will-change: auto;
+}
+
+/* List optimizations */
+.optimized-list {
+  contain: layout style;
+}
+
+.optimized-list-item {
+  contain: layout style paint;
+}
+
+/* Button optimizations */
+.optimized-btn {
+  contain: layout style;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.optimized-btn:active {
+  transform: translateZ(0) scale(0.98);
+}
+
+/* Form optimizations */
+.optimized-form {
+  contain: layout style;
+}
+
+.optimized-form-control {
+  contain: layout style paint;
+}
+
+/* Modal optimizations */
+.optimized-modal {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+.optimized-modal-backdrop {
+  contain: layout style paint;
+}
+
+/* Navigation optimizations */
+.optimized-nav {
+  contain: layout style;
+}
+
+.optimized-nav-item {
+  contain: layout style paint;
+}
+
+/* Table optimizations */
+.optimized-table {
+  contain: layout style;
+  table-layout: fixed;
+}
+
+.optimized-table-cell {
+  contain: layout style paint;
+}
+
+/* Chart optimizations */
+.optimized-chart {
+  contain: layout style paint;
+}
+
+.optimized-chart-canvas {
+  /* Optimize canvas rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Animation frame optimizations */
+.animation-frame {
+  /* Reduce animation frame rate for better performance */
+  animation-duration: calc(var(--transition-normal) * 2);
+}
+
+/* Touch performance */
+.touch-optimized {
+  /* Optimize for touch interactions */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* GPU acceleration */
+.gpu-accelerate {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Memory efficient rendering */
+.memory-efficient-render {
+  /* Reduce memory footprint */
+  contain: layout style paint;
+}
+
+/* Critical rendering path optimizations */
+.critical-rendering {
+  /* Prioritize critical rendering */
+  contain: strict;
+}
+
+/* Lazy rendering */
+.lazy-render {
+  /* Defer non-critical rendering */
+  content-visibility: auto;
+  contain-intrinsic-size: 100px;
+}
+
+/* Intersection Observer optimizations */
+.intersection-observer {
+  /* Optimize for Intersection Observer */
+  visibility: hidden;
+}
+
+.intersection-observer.visible {
+  visibility: visible;
+}
+
+/* Service worker optimizations */
+.service-worker-optimized {
+  /* Optimize for service worker caching */
+}
+
+/* Resource hint optimizations */
+.resource-hint {
+  /* Optimize resource loading */
+}
+
+/* Critical resource loading */
+.critical-resource {
+  /* Prioritize critical resources */
+}
+
+/* Non-critical resource loading */
+.non-critical-resource {
+  /* Defer non-critical resources */
+}

@@ -1,0 +1,477 @@
+/* Cross-Browser Compatibility Styles */
+
+/* CSS Feature Detection */
+@supports (display: grid) {
+  .grid-supported {
+    display: grid;
+  }
+}
+
+@supports (display: flex) {
+  .flex-supported {
+    display: flex;
+  }
+}
+
+@supports (position: sticky) {
+  .sticky-supported {
+    position: sticky;
+  }
+}
+
+/* Modern CSS Features with Fallbacks */
+.modern-grid {
+  /* Fallback for older browsers */
+  display: block;
+}
+
+@supports (display: grid) {
+  .modern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+.modern-flex {
+  /* Fallback for older browsers */
+  display: block;
+}
+
+@supports (display: flex) {
+  .modern-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+}
+
+/* CSS Custom Properties Fallbacks */
+.color-primary {
+  color: #0a92ff; /* Fallback for older browsers */
+  color: var(--color-primary);
+}
+
+.background-primary {
+  background-color: #0a92ff; /* Fallback for older browsers */
+  background-color: var(--color-primary);
+}
+
+/* Vendor Prefixes for Older Browsers */
+.transform-prefixed {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.transition-prefixed {
+  -webkit-transition: all var(--transition-normal) var(--timing-function-standard);
+  -moz-transition: all var(--transition-normal) var(--timing-function-standard);
+  -o-transition: all var(--transition-normal) var(--timing-function-standard);
+  transition: all var(--transition-normal) var(--timing-function-standard);
+}
+
+.animation-prefixed {
+  -webkit-animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+  -moz-animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+  -o-animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+  animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+}
+
+/* Flexbox Fallbacks */
+.flex-container {
+  /* Fallback for older browsers */
+  display: block;
+}
+
+@supports (display: flex) {
+  .flex-container {
+    display: flex;
+  }
+}
+
+.flex-item {
+  /* Fallback for older browsers */
+  float: left;
+  width: 33.33%;
+}
+
+@supports (display: flex) {
+  .flex-item {
+    float: none;
+    width: auto;
+  }
+}
+
+/* Grid Fallbacks */
+.grid-container {
+  /* Fallback for older browsers */
+  display: block;
+}
+
+@supports (display: grid) {
+  .grid-container {
+    display: grid;
+  }
+}
+
+.grid-item {
+  /* Fallback for older browsers */
+  float: left;
+  width: 33.33%;
+}
+
+@supports (display: grid) {
+  .grid-item {
+    float: none;
+    width: auto;
+  }
+}
+
+/* Box Model Fixes */
+.box-sizing-fix {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Clearfix for Floats */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Media Query Fallbacks */
+.responsive-container {
+  width: 100%;
+  padding: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .responsive-container {
+    width: 750px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    width: 1000px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-container {
+    width: 1200px;
+  }
+}
+
+/* REM Unit Fallbacks */
+.font-size-rem {
+  font-size: 16px; /* Fallback for older browsers */
+  font-size: 1rem;
+}
+
+.padding-rem {
+  padding: 16px; /* Fallback for older browsers */
+  padding: 1rem;
+}
+
+.margin-rem {
+  margin: 16px; /* Fallback for older browsers */
+  margin: 1rem;
+}
+
+/* Opacity Fallbacks */
+.opacity-partial {
+  filter: alpha(opacity=50); /* IE8 and earlier */
+  opacity: 0.5;
+}
+
+.opacity-full {
+  filter: alpha(opacity=100); /* IE8 and earlier */
+  opacity: 1;
+}
+
+/* Background Opacity Fallbacks */
+.background-opacity {
+  background-color: #0a92ff; /* Fallback for older browsers */
+  background-color: rgba(10, 146, 255, 0.8);
+}
+
+/* Border Radius Fallbacks */
+.border-radius {
+  -webkit-border-radius: var(--border-radius-md);
+  -moz-border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-md);
+}
+
+/* Box Shadow Fallbacks */
+.box-shadow {
+  -webkit-box-shadow: var(--shadow-md);
+  -moz-box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* Text Shadow Fallbacks */
+.text-shadow {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient Fallbacks */
+.gradient-background {
+  background-color: #0a92ff; /* Fallback for older browsers */
+  background: linear-gradient(to right, #0a92ff, #3aadff);
+}
+
+/* Transform Fallbacks */
+.transform-rotate {
+  -ms-transform: rotate(45deg); /* IE9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+}
+
+.transform-scale {
+  -ms-transform: scale(1.2); /* IE9 */
+  -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
+  transform: scale(1.2);
+}
+
+.transform-translate {
+  -ms-transform: translate(10px, 20px); /* IE9 */
+  -webkit-transform: translate(10px, 20px); /* Chrome, Safari, Opera */
+  transform: translate(10px, 20px);
+}
+
+/* Transition Fallbacks */
+.transition-all {
+  -webkit-transition: all var(--transition-normal) var(--timing-function-standard);
+  -moz-transition: all var(--transition-normal) var(--timing-function-standard);
+  -o-transition: all var(--transition-normal) var(--timing-function-standard);
+  transition: all var(--transition-normal) var(--timing-function-standard);
+}
+
+/* Animation Fallbacks */
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-o-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  -webkit-animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+  -moz-animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+  -o-animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+  animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+}
+
+/* Input Placeholder Fallbacks */
+::-webkit-input-placeholder {
+  color: var(--color-text-tertiary);
+}
+
+::-moz-placeholder {
+  color: var(--color-text-tertiary);
+}
+
+:-ms-input-placeholder {
+  color: var(--color-text-tertiary);
+}
+
+::-ms-input-placeholder {
+  color: var(--color-text-tertiary);
+}
+
+::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Selection Fallbacks */
+::-moz-selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Scrollbar Fallbacks */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--border-radius-full);
+}
+
+/* IE Fixes */
+.ie-fix {
+  zoom: 1; /* Trigger hasLayout in IE */
+}
+
+.ie-clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+  zoom: 1;
+}
+
+/* Firefox Fixes */
+.firefox-fix {
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safari Fixes */
+.safari-fix {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Edge Fixes */
+.edge-fix {
+  -ms-overflow-style: scrollbar;
+}
+
+/* Mobile Browser Fixes */
+.mobile-fix {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive Videos */
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive Embeds */
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Print Styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .high-contrast-adjust {
+    border: 2px solid var(--color-border);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reduced Data */
+@media (prefers-reduced-data: reduce) {
+  .data-heavy {
+    display: none;
+  }
+}
+
+/* Reduced Transparency */
+@media (prefers-reduced-transparency: reduce) {
+  .translucent {
+    background-color: var(--color-surface);
+    backdrop-filter: none;
+  }
+}

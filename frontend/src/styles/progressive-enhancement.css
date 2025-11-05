@@ -1,0 +1,1038 @@
+/* Progressive Enhancement for Older Browsers */
+
+/* Feature detection and fallbacks for CSS Grid */
+.grid-container {
+  /* Fallback for older browsers that don't support CSS Grid */
+  display: block;
+}
+
+@supports (display: grid) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+.grid-item {
+  /* Fallback for older browsers */
+  float: left;
+  width: 100%;
+  margin-bottom: var(--space-md);
+}
+
+@supports (display: grid) {
+  .grid-item {
+    float: none;
+    width: auto;
+    margin-bottom: 0;
+  }
+}
+
+/* Feature detection and fallbacks for CSS Flexbox */
+.flex-container {
+  /* Fallback for older browsers */
+  display: block;
+}
+
+@supports (display: flex) {
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+}
+
+.flex-item {
+  /* Fallback for older browsers */
+  float: left;
+  width: 100%;
+  margin-bottom: var(--space-md);
+}
+
+@supports (display: flex) {
+  .flex-item {
+    float: none;
+    width: auto;
+    margin-bottom: 0;
+  }
+}
+
+/* CSS Custom Properties Fallbacks */
+.color-primary {
+  /* Fallback for browsers that don't support CSS custom properties */
+  color: #0a92ff;
+  color: var(--color-primary);
+}
+
+.background-primary {
+  /* Fallback for browsers that don't support CSS custom properties */
+  background-color: #0a92ff;
+  background-color: var(--color-primary);
+}
+
+.border-radius {
+  /* Fallback for browsers that don't support CSS custom properties */
+  border-radius: 6px;
+  border-radius: var(--border-radius-md);
+}
+
+/* Vendor Prefixes for Older Browsers */
+.transform-prefixed {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.transition-prefixed {
+  -webkit-transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -moz-transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -o-transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* REM Unit Fallbacks */
+.font-size-rem {
+  /* Fallback for older browsers that don't support REM units */
+  font-size: 16px;
+  font-size: 1rem;
+}
+
+.padding-rem {
+  /* Fallback for older browsers that don't support REM units */
+  padding: 16px;
+  padding: 1rem;
+}
+
+.margin-rem {
+  /* Fallback for older browsers that don't support REM units */
+  margin: 16px;
+  margin: 1rem;
+}
+
+/* Opacity Fallbacks */
+.opacity-partial {
+  /* Fallback for IE8 and earlier */
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+.opacity-full {
+  /* Fallback for IE8 and earlier */
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+/* Background Opacity Fallbacks */
+.background-opacity {
+  /* Fallback for older browsers */
+  background-color: #0a92ff;
+  background-color: rgba(10, 146, 255, 0.8);
+}
+
+/* Border Radius Fallbacks */
+.border-radius {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  border-radius: var(--border-radius-md);
+}
+
+/* Box Shadow Fallbacks */
+.box-shadow {
+  -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  -moz-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-md);
+}
+
+/* Text Shadow Fallbacks */
+.text-shadow {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient Fallbacks */
+.gradient-background {
+  /* Fallback for older browsers */
+  background-color: #0a92ff;
+  background: linear-gradient(to right, #0a92ff, #3aadff);
+  background: linear-gradient(to right, var(--color-primary), var(--color-primary-hover));
+}
+
+/* Transform Fallbacks */
+.transform-rotate {
+  -ms-transform: rotate(45deg); /* IE9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+}
+
+.transform-scale {
+  -ms-transform: scale(1.2); /* IE9 */
+  -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
+  transform: scale(1.2);
+}
+
+.transform-translate {
+  -ms-transform: translate(10px, 20px); /* IE9 */
+  -webkit-transform: translate(10px, 20px); /* Chrome, Safari, Opera */
+  transform: translate(10px, 20px);
+}
+
+/* Transition Fallbacks */
+.transition-all {
+  -webkit-transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -moz-transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -o-transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: all var(--transition-normal) var(--timing-function-standard);
+}
+
+/* Animation Fallbacks */
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-o-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  -webkit-animation: fadeIn 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -moz-animation: fadeIn 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -o-animation: fadeIn 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  animation: fadeIn 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+}
+
+/* Input Placeholder Fallbacks */
+input::-webkit-input-placeholder {
+  color: #9ca3af;
+  color: var(--color-text-tertiary);
+}
+
+input::-moz-placeholder {
+  color: #9ca3af;
+  color: var(--color-text-tertiary);
+}
+
+input:-ms-input-placeholder {
+  color: #9ca3af;
+  color: var(--color-text-tertiary);
+}
+
+input::-ms-input-placeholder {
+  color: #9ca3af;
+  color: var(--color-text-tertiary);
+}
+
+input::placeholder {
+  color: #9ca3af;
+  color: var(--color-text-tertiary);
+}
+
+/* Selection Fallbacks */
+::-moz-selection {
+  background-color: #0a92ff;
+  background-color: var(--color-primary);
+  color: white;
+}
+
+::selection {
+  background-color: #0a92ff;
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* IE Fixes */
+.ie-fix {
+  zoom: 1; /* Trigger hasLayout in IE */
+}
+
+.ie-clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+  zoom: 1;
+}
+
+/* Firefox Fixes */
+.firefox-fix {
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safari Fixes */
+.safari-fix {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Edge Fixes */
+.edge-fix {
+  -ms-overflow-style: scrollbar;
+}
+
+/* Mobile Browser Fixes */
+.mobile-fix {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Media Query Fallbacks */
+.responsive-container {
+  width: 100%;
+  padding: 1.5rem; /* 24px */
+  padding: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .responsive-container {
+    width: 750px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    width: 1000px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-container {
+    width: 1200px;
+  }
+}
+
+/* Box Model Fixes */
+.box-sizing-fix {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Clearfix for Floats */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Feature Detection for Advanced Features */
+.advanced-feature {
+  /* Base styles for all browsers */
+  background-color: #f9fafb;
+  background-color: var(--color-background-secondary);
+  padding: 1rem; /* 16px */
+  padding: var(--space-sm);
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  .advanced-feature {
+    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+  }
+}
+
+@supports (display: grid) and (gap: 1rem) {
+  .advanced-feature {
+    display: grid;
+    gap: 1rem;
+    gap: var(--space-sm);
+  }
+}
+
+/* JavaScript Enhancement Classes */
+.js .enhanced-feature {
+  /* Styles that only apply when JavaScript is enabled */
+  opacity: 1;
+  transition: opacity 300ms ease;
+  transition: opacity var(--transition-normal) var(--timing-function-standard);
+}
+
+.no-js .enhanced-feature {
+  /* Fallback styles for when JavaScript is disabled */
+  opacity: 0.7;
+}
+
+/* Progressive Loading States */
+.progressive-loading {
+  /* Base styles */
+  background-color: #f9fafb;
+  background-color: var(--color-background-secondary);
+  min-height: 200px;
+  position: relative;
+}
+
+.progressive-loading::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 4px solid #e5e7eb;
+  border: 4px solid var(--color-border);
+  border-top-color: #0a92ff;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Feature Detection for CSS Variables */
+.supports-custom-properties {
+  /* Styles for browsers that support CSS custom properties */
+  color: var(--color-text-primary);
+}
+
+/* Feature Detection for CSS Grid */
+.supports-grid {
+  /* Styles for browsers that support CSS Grid */
+  display: grid;
+}
+
+/* Feature Detection for Flexbox */
+.supports-flexbox {
+  /* Styles for browsers that support Flexbox */
+  display: flex;
+}
+
+/* Feature Detection for CSS Transforms */
+.supports-transforms {
+  /* Styles for browsers that support CSS Transforms */
+  transform: translateZ(0);
+}
+
+/* Feature Detection for CSS Animations */
+.supports-animations {
+  /* Styles for browsers that support CSS Animations */
+  animation: fadeIn 300ms ease;
+  animation: fadeIn var(--transition-normal) var(--timing-function-standard);
+}
+
+/* Fallback for older browsers that don't support modern features */
+.fallback-layout {
+  /* Simple block layout for older browsers */
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem; /* 16px */
+  padding: var(--space-sm);
+}
+
+/* Progressive Enhancement for Navigation */
+.progressive-nav {
+  /* Base styles for all browsers */
+  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.progressive-nav ul {
+  /* Fallback for browsers that don't support Flexbox */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.progressive-nav li {
+  /* Fallback for browsers that don't support Flexbox */
+  display: block;
+  float: left;
+}
+
+@supports (display: flex) {
+  .progressive-nav ul {
+    display: flex;
+  }
+
+  .progressive-nav li {
+    float: none;
+  }
+}
+
+/* Progressive Enhancement for Forms */
+.progressive-form {
+  /* Base styles for all browsers */
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem; /* 24px */
+  padding: var(--space-md);
+  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* 8px */
+  border-radius: var(--border-radius-md);
+}
+
+.progressive-form input,
+.progressive-form textarea,
+.progressive-form select {
+  /* Fallback for browsers that don't support modern form styling */
+  width: 100%;
+  padding: 0.5rem; /* 8px */
+  padding: var(--space-xs);
+  margin-bottom: 1rem; /* 16px */
+  margin-bottom: var(--space-sm);
+  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.25rem; /* 4px */
+  border-radius: var(--border-radius-sm);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-family-primary);
+}
+
+/* Progressive Enhancement for Buttons */
+.progressive-btn {
+  /* Base styles for all browsers */
+  display: inline-block;
+  padding: 0.5rem 1rem; /* 8px 16px */
+  padding: var(--space-xs) var(--space-sm);
+  background-color: #0a92ff;
+  background-color: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.25rem; /* 4px */
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-family-primary);
+  font-size: 1rem; /* 16px */
+  font-size: var(--font-size-base);
+  transition: background-color 150ms ease;
+  transition: background-color var(--transition-fast) var(--timing-function-standard);
+  min-height: 44px; /* Touch target minimum */
+  min-height: var(--touch-target-min);
+  min-width: 44px; /* Touch target minimum */
+  min-width: var(--touch-target-min);
+}
+
+.progressive-btn:hover {
+  background-color: #0070e0;
+  background-color: var(--color-primary-hover);
+}
+
+.progressive-btn:focus {
+  outline: 2px solid #0a92ff;
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: 2px;
+  outline-offset: var(--ring-offset);
+}
+
+/* Feature Detection for CSS Custom Properties */
+@supports (color: var(--custom-property)) {
+  .progressive-btn {
+    /* Enhanced styles for browsers that support CSS custom properties */
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    transition: background-color var(--transition-fast) var(--timing-function-standard);
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+  }
+
+  .progressive-btn:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .progressive-btn:focus {
+    outline: var(--ring-width) solid var(--ring-color);
+    outline-offset: var(--ring-offset);
+  }
+}
+
+/* Progressive Enhancement for Cards */
+.progressive-card {
+  /* Base styles for all browsers */
+  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* 8px */
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem; /* 24px */
+  padding: var(--space-md);
+  margin-bottom: 1.5rem; /* 24px */
+  margin-bottom: var(--space-md);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+}
+
+@supports (box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1)) {
+  .progressive-card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Progressive Enhancement for Tables */
+.progressive-table {
+  /* Base styles for all browsers */
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem; /* 24px */
+  margin-bottom: var(--space-md);
+}
+
+.progressive-table th,
+.progressive-table td {
+  /* Base styles for all browsers */
+  padding: 0.75rem; /* 12px */
+  padding: var(--space-xs);
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.progressive-table th {
+  /* Base styles for all browsers */
+  background-color: #f9fafb;
+  background-color: var(--color-background-secondary);
+  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
+}
+
+@supports (position: sticky) {
+  .progressive-table th {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-surface);
+    z-index: 10;
+  }
+}
+
+/* Progressive Enhancement for Images */
+.progressive-img {
+  /* Base styles for all browsers */
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.progressive-img.lazy {
+  /* Styles for lazy-loaded images */
+  opacity: 0;
+  transition: opacity 300ms ease;
+  transition: opacity var(--transition-normal) var(--timing-function-standard);
+}
+
+.progressive-img.loaded {
+  /* Styles for loaded images */
+  opacity: 1;
+}
+
+/* Feature Detection for Object-Fit */
+@supports (object-fit: cover) {
+  .progressive-img.cover {
+    object-fit: cover;
+  }
+
+  .progressive-img.contain {
+    object-fit: contain;
+  }
+}
+
+/* Progressive Enhancement for Typography */
+.progressive-heading {
+  /* Base styles for all browsers */
+  margin-top: 0;
+  margin-bottom: 1rem; /* 16px */
+  margin-bottom: var(--space-sm);
+  font-weight: 600; /* Semi-bold */
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  line-height: var(--line-height-tight);
+}
+
+.progressive-heading.h1 {
+  font-size: 2.25rem; /* 36px */
+  font-size: var(--font-size-4xl);
+  margin-bottom: 1.5rem; /* 24px */
+  margin-bottom: var(--space-md);
+}
+
+.progressive-heading.h2 {
+  font-size: 1.875rem; /* 30px */
+  font-size: var(--font-size-3xl);
+  margin-top: 2rem; /* 32px */
+  margin-top: var(--space-lg);
+  margin-bottom: 1rem; /* 16px */
+  margin-bottom: var(--space-sm);
+}
+
+.progressive-heading.h3 {
+  font-size: 1.5rem; /* 24px */
+  font-size: var(--font-size-2xl);
+  margin-top: 1.5rem; /* 24px */
+  margin-top: var(--space-md);
+  margin-bottom: 0.75rem; /* 12px */
+  margin-bottom: var(--space-xs);
+}
+
+/* Progressive Enhancement for Lists */
+.progressive-list {
+  /* Base styles for all browsers */
+  padding-left: 1.5rem; /* 24px */
+  padding-left: var(--space-md);
+  margin-bottom: 1rem; /* 16px */
+  margin-bottom: var(--space-sm);
+}
+
+.progressive-list-item {
+  /* Base styles for all browsers */
+  margin-bottom: 0.25rem; /* 4px */
+  margin-bottom: var(--space-3xs);
+}
+
+/* Progressive Enhancement for Links */
+.progressive-link {
+  /* Base styles for all browsers */
+  color: #0a92ff;
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: color 150ms ease;
+  transition: color var(--transition-fast) var(--timing-function-standard);
+}
+
+.progressive-link:hover {
+  color: #0070e0;
+  color: var(--color-primary-hover);
+}
+
+/* Feature Detection for Text Decoration */
+@supports (text-decoration-thickness: 1px) {
+  .progressive-link {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .progressive-link:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* Progressive Enhancement for Accessibility Features */
+.progressive-sr-only {
+  /* Visually hidden but accessible to screen readers */
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.progressive-focus-ring {
+  /* Focus indicator for keyboard navigation */
+  outline: 2px solid #0a92ff;
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: 2px;
+  outline-offset: var(--ring-offset);
+}
+
+/* Progressive Enhancement for Print */
+@media print {
+  .progressive-print {
+    /* Styles for print media */
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .progressive-no-print {
+    /* Hide elements when printing */
+    display: none !important;
+  }
+
+  .progressive-print-only {
+    /* Show elements only when printing */
+    display: block !important;
+  }
+}
+
+/* Progressive Enhancement for Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .progressive-motion {
+    /* Disable animations for users who prefer reduced motion */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .progressive-no-motion {
+    /* Remove motion effects */
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Progressive Enhancement for High Contrast Mode */
+@media (prefers-contrast: high) {
+  .progressive-high-contrast {
+    /* Enhanced styles for high contrast mode */
+    border: 2px solid #000;
+    border: 2px solid var(--color-border);
+  }
+
+  .progressive-link {
+    /* Enhanced link styles for high contrast mode */
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* Progressive Enhancement for Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  .progressive-touch {
+    /* Styles for touch devices */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .progressive-touch:hover {
+    /* Remove hover effects on touch devices */
+    background-color: inherit;
+  }
+}
+
+/* Progressive Enhancement for Older Browsers */
+.old-browser {
+  /* Styles specifically for older browsers */
+  font-family: Arial, sans-serif; /* Fallback font */
+  background-color: #f0f0f0; /* Fallback background */
+  color: #333; /* Fallback text color */
+}
+
+/* Feature Detection for Modern CSS Features */
+.modern-css {
+  /* Base styles that work in all browsers */
+}
+
+@supports (display: grid) and (display: flex) and (color: var(--custom-property)) {
+  .modern-css {
+    /* Enhanced styles for modern browsers */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    gap: var(--space-lg);
+  }
+}
+
+/* Feature Detection for CSS Containment */
+@supports (contain: layout) {
+  .containment {
+    contain: layout style paint;
+  }
+}
+
+/* Feature Detection for CSS Will-Change */
+@supports (will-change: transform) {
+  .will-change {
+    will-change: transform;
+  }
+}
+
+/* Progressive Enhancement for Complex Layouts */
+.complex-layout {
+  /* Base styles for all browsers */
+  display: block;
+}
+
+@supports (display: grid) {
+  .complex-layout {
+    display: grid;
+  }
+}
+
+@supports (display: flex) {
+  .complex-layout {
+    display: flex;
+  }
+}
+
+/* Progressive Enhancement for Advanced Components */
+.advanced-component {
+  /* Base styles for all browsers */
+  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
+  padding: var(--space-sm);
+}
+
+@supports (box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1)) {
+  .advanced-component {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Progressive Enhancement for Interactive Elements */
+.interactive-element {
+  /* Base styles for all browsers */
+  cursor: pointer;
+  transition: all 150ms ease;
+  transition: all var(--transition-fast) var(--timing-function-standard);
+  min-height: 44px;
+  min-height: var(--touch-target-min);
+  min-width: 44px;
+  min-width: var(--touch-target-min);
+}
+
+.interactive-element:hover {
+  background-color: #f9fafb;
+  background-color: var(--color-background-secondary);
+}
+
+.interactive-element:active {
+  transform: translateY(1px);
+}
+
+@supports (transform: translateY(1px)) {
+  .interactive-element:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Progressive Enhancement for Modal Dialogs */
+.progressive-modal {
+  /* Base styles for all browsers */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-backdrop);
+  display: none;
+}
+
+.progressive-modal.open {
+  display: block;
+}
+
+@supports (display: flex) {
+  .progressive-modal.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.progressive-modal-content {
+  /* Base styles for all browsers */
+  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  padding: var(--space-md);
+  margin: 1rem;
+  margin: var(--space-sm);
+  max-width: 500px;
+  width: calc(100% - 2rem);
+  width: calc(100% - 2 * var(--space-sm));
+}
+
+/* Progressive Enhancement for Accordions */
+.progressive-accordion {
+  /* Base styles for all browsers */
+  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.progressive-accordion-item {
+  /* Base styles for all browsers */
+  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.progressive-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.progressive-accordion-header {
+  /* Base styles for all browsers */
+  margin: 0;
+}
+
+.progressive-accordion-button {
+  /* Base styles for all browsers */
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  padding: var(--space-sm);
+  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border: none;
+  text-align: left;
+  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  min-height: 44px;
+  min-height: var(--touch-target-min);
+}
+
+.progressive-accordion-button:focus {
+  outline: 2px solid #0a92ff;
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: -2px;
+  outline-offset: calc(var(--ring-offset) * -1);
+}
+
+.progressive-accordion-content {
+  /* Base styles for all browsers */
+  padding: 0 1rem 1rem;
+  padding: 0 var(--space-sm) var(--space-sm);
+  display: none;
+}
+
+.progressive-accordion-content.open {
+  display: block;
+}
+
+@supports (display: flex) {
+  .progressive-accordion-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

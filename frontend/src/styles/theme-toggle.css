@@ -1,0 +1,246 @@
+/* Theme Toggle Styles */
+
+/* Theme Toggle Button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring-color);
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-primary-500);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Theme Toggle Icons */
+.theme-toggle-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Theme Toggle Container */
+.theme-toggle-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Theme Toggle Dropdown */
+.theme-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 160px;
+  margin-top: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 200ms ease;
+}
+
+.theme-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Theme Options */
+.theme-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  transition: background-color 150ms ease;
+  min-height: 44px;
+}
+
+.theme-option:hover {
+  background-color: var(--color-background);
+}
+
+.theme-option:focus {
+  outline: none;
+  background-color: var(--color-background);
+}
+
+.theme-option.active {
+  background-color: rgba(10, 146, 255, 0.1);
+  color: var(--color-primary-500);
+}
+
+.theme-option-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-option-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Theme System Badge */
+.theme-system-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: var(--font-size-xs);
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-800);
+  margin-left: 8px;
+}
+
+.dark .theme-system-badge {
+  background-color: var(--color-primary-900);
+  color: var(--color-primary-100);
+}
+
+/* Theme Toggle Animation */
+.theme-transition {
+  transition: background-color 300ms ease,
+              color 300ms ease,
+              border-color 300ms ease;
+}
+
+/* Theme Toggle States */
+.theme-light .theme-toggle {
+  color: #f59e0b;
+}
+
+.theme-dark .theme-toggle {
+  color: #fbbf24;
+}
+
+.theme-auto .theme-toggle {
+  color: #6b7280;
+}
+
+/* Theme Preview */
+.theme-preview {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.theme-preview-item {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin: 0 4px;
+  border: 2px solid var(--color-border);
+  transition: transform 200ms ease;
+}
+
+.theme-preview-item:hover {
+  transform: scale(1.1);
+}
+
+.theme-preview-light {
+  background-color: #ffffff;
+}
+
+.theme-preview-dark {
+  background-color: #1f2937;
+}
+
+.theme-preview-auto {
+  background: linear-gradient(45deg, #ffffff 50%, #1f2937 50%);
+}
+
+/* Theme Toggle Accessibility */
+.theme-toggle[aria-expanded="true"] .theme-toggle-icon {
+  color: var(--color-primary-500);
+}
+
+.theme-toggle[aria-pressed="true"] {
+  background-color: rgba(10, 146, 255, 0.1);
+  border-color: var(--color-primary-500);
+}
+
+/* Theme Toggle Focus Visible */
+.theme-toggle.focus-visible {
+  box-shadow: 0 0 0 2px var(--ring-color);
+}
+
+/* Theme Toggle Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-dropdown,
+  .theme-option {
+    transition: none;
+  }
+
+  .theme-toggle:active {
+    transform: none;
+  }
+}
+
+/* Theme Toggle High Contrast */
+@media (prefers-contrast: high) {
+  .theme-toggle {
+    border-width: 2px;
+  }
+
+  .theme-dropdown {
+    border-width: 2px;
+  }
+
+  .theme-option {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .theme-option:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Theme Toggle Print Styles */
+@media print {
+  .theme-toggle-container {
+    display: none;
+  }
+}

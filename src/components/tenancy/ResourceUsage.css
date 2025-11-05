@@ -1,0 +1,240 @@
+.resource-usage {
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.plan-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.plan-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.plan-free {
+  background: #f0f7ff;
+  color: #0070f3;
+}
+
+.plan-professional {
+  background: #e6fffa;
+  color: #00856a;
+}
+
+.plan-business {
+  background: #fff5e6;
+  color: #d67e00;
+}
+
+.plan-enterprise {
+  background: #f5e6ff;
+  color: #7928ca;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.resource-card {
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.resource-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.resource-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.resource-icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.resource-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.resource-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+.usage-text {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.used {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.separator {
+  font-size: 16px;
+  color: #666666;
+}
+
+.limit {
+  font-size: 16px;
+  color: #666666;
+}
+
+.percentage {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.progress-bar-container {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e1e5e9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-success {
+  background: #00856a;
+}
+
+.progress-warning {
+  background: #d67e00;
+}
+
+.progress-danger {
+  background: #e00;
+}
+
+.resource-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.upgrade-btn, .view-details-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: 1px solid #e1e5e9;
+}
+
+.upgrade-btn {
+  background: #ffefef;
+  color: #e00;
+}
+
+.upgrade-btn:hover {
+  background: #ffe0e0;
+}
+
+.view-details-btn {
+  background: #ffffff;
+  color: #0070f3;
+}
+
+.view-details-btn:hover {
+  background: #f0f7ff;
+}
+
+.usage-details {
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.usage-details h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.usage-chart {
+  padding: 20px 0;
+}
+
+.chart-grid {
+  display: flex;
+  align-items: flex-end;
+  height: 150px;
+  gap: 20px;
+  padding: 0 10px;
+}
+
+.chart-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.bar-fill {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s ease;
+}
+
+.bar-label {
+  font-size: 12px;
+  color: #666666;
+}
+
+.resource-usage-placeholder {
+  padding: 24px;
+  text-align: center;
+  color: #666666;
+  font-style: italic;
+}
