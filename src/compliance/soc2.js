@@ -234,9 +234,9 @@ class SOC2Compliance {
   checkAvailability() {
     // In a real implementation, this would check:
     // - System uptime
-    - Service response times
-    - Error rates
-    - Resource utilization
+    // - Service response times
+    // - Error rates
+    // - Resource utilization
 
     const availabilityMetrics = {
       timestamp: new Date().toISOString(),

@@ -15,7 +15,6 @@ const { RedisInstrumentation } = require('@opentelemetry/instrumentation-redis')
 const { PgInstrumentation } = require('@opentelemetry/instrumentation-pg');
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
-const { ContainerDetector } = require('@opentelemetry/resource-detector-container');
 
 class OpenTelemetryConfig {
   constructor() {
