@@ -35,4 +35,12 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    // Grid column classes for ResponsiveGrid component
+    ...Array.from({ length: 12 }, (_, i) => `grid-cols-${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `sm:grid-cols-${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `md:grid-cols-${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `lg:grid-cols-${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `xl:grid-cols-${i + 1}`),
+  ]
 }

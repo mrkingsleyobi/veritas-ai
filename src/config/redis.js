@@ -42,7 +42,7 @@ class RedisClient {
         port: redisConfig.port,
         password: redisConfig.password,
         db: redisConfig.db,
-        keyPrefix: redisConfig.keyPrefix,
+        // keyPrefix is not used here because BullMQ requires prefix to be specified in queue options
         retryDelayOnFailover: redisConfig.retryDelayOnFailover,
         maxRetriesPerRequest: redisConfig.maxRetriesPerRequest,
         maxRetries: redisConfig.maxRetries,
@@ -95,7 +95,7 @@ class RedisClient {
         port: redisConfig.port,
         password: redisConfig.password,
         db: redisConfig.db,
-        keyPrefix: redisConfig.keyPrefix,
+        // keyPrefix is not used here because BullMQ requires prefix to be specified in queue options
         maxRetries: redisConfig.maxRetries,
         lazyConnect: true
       });

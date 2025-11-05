@@ -4,7 +4,7 @@ import { useTheme } from '../../contexts/ThemeContext'
 import {
   Description as DescriptionIcon,
   Gavel as GavelIcon,
-  UserCircle as UserIcon,
+  AccountCircle as UserIcon,
   CheckCircle as CheckCircleIcon,
   Warning as WarningIcon
 } from '@mui/icons-material'

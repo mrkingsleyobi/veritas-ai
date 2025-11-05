@@ -86,7 +86,15 @@ const ExportReports = () => {
         variant="outlined"
         startIcon={<DownloadIcon />}
         onClick={handleClickOpen}
-        className={theme === 'dark' ? 'text-white border-gray-600 hover:border-gray-500' : ''}
+        sx={{
+          ...(theme === 'dark' && {
+            color: 'white',
+            borderColor: '#4b5563',
+            '&:hover': {
+              borderColor: '#6b7280'
+            }
+          })
+        }}
       >
         Export Reports
       </Button>

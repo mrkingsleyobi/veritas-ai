@@ -117,12 +117,17 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// Session configuration with OAuth2
-app.use(session(oauth2Config.getSessionConfig()));
+// Session configuration with OAuth2 (if configured)
+const sessionConfig = oauth2Config.getSessionConfig();
+if (sessionConfig) {
+  app.use(session(sessionConfig));
 
-// Passport middleware for OAuth2
-app.use(oauth2Config.getPassportMiddleware());
-app.use(oauth2Config.getPassportSessionMiddleware());
+  // Passport middleware for OAuth2 (if configured)
+  if (oauth2Config.getPassportMiddleware) {
+    app.use(oauth2Config.getPassportMiddleware());
+    app.use(oauth2Config.getPassportSessionMiddleware());
+  }
+}
 
 // Import custom middleware
 const { authenticateToken, requireAuth } = require('./middleware/auth');
@@ -179,21 +184,23 @@ app.use('/api/audit', auditRoutes);
 // Compliance Dashboard routes
 app.use('/api/dashboard', dashboardRoutes);
 
-// OAuth2 routes
-app.get('/auth/oauth2', (req, res, next) => {
-  const passport = require('passport');
+// OAuth2 routes (only if OAuth2 is configured)
+if (process.env.OAUTH2_CLIENT_ID && process.env.OAUTH2_CLIENT_SECRET) {
+  app.get('/auth/oauth2', (req, res, next) => {
+    const passport = require('passport');
 
-  passport.authenticate('oauth2')(req, res, next);
-});
+    passport.authenticate('oauth2')(req, res, next);
+  });
 
-app.get('/auth/oauth2/callback', (req, res, next) => {
-  const passport = require('passport');
+  app.get('/auth/oauth2/callback', (req, res, next) => {
+    const passport = require('passport');
 
-  passport.authenticate('oauth2', { failureRedirect: '/login' })(req, res, next);
-}, (req, res) => {
-  // Successful authentication, redirect to dashboard or home
-  res.redirect('/dashboard');
-});
+    passport.authenticate('oauth2', { failureRedirect: '/login' })(req, res, next);
+  }, (req, res) => {
+    // Successful authentication, redirect to dashboard or home
+    res.redirect('/dashboard');
+  });
+}
 
 // Authentication routes
 app.post('/api/auth/register', [

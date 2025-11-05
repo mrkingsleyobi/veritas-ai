@@ -257,9 +257,14 @@ const AlertNotifications = () => {
                         <Chip
                           label={notification.category}
                           size="small"
-                          className="ml-2"
+                          sx={{
+                            marginLeft: 2,
+                            ...(theme === 'dark' && {
+                              color: 'white',
+                              borderColor: 'white'
+                            })
+                          }}
                           variant="outlined"
-                          className={theme === 'dark' ? 'dark:text-white dark:border-white' : ''}
                         />
                       </div>
                     }

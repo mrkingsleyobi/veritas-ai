@@ -23,7 +23,9 @@ RUN npm run build
 FROM nginx:alpine AS production
 
 # Create non-root user for security
-RUN addgroup -g 1001 -S nginx && \
+RUN delgroup nginx 2>/dev/null || true && \
+    deluser nginx 2>/dev/null || true && \
+    addgroup -g 1001 -S nginx && \
     adduser -S nginx -u 1001 -G nginx && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \

@@ -23,14 +23,14 @@ export const initSentry = () => {
       replaysSessionSampleRate: sentry.replaysSessionSampleRate,
       replaysOnErrorSampleRate: sentry.replaysOnErrorSampleRate,
       integrations: [
-        new Sentry.BrowserTracing({
+        Sentry.browserTracingIntegration({
           tracePropagationTargets: [
             'localhost',
             /^https:\/\/.*veritas-ai\.com\/api/,
             /^https:\/\/api\..*veritas-ai\.com/,
           ],
         }),
-        new Sentry.Replay({
+        Sentry.replayIntegration({
           maskAllText: true,
           blockAllMedia: true,
         }),
@@ -121,7 +121,10 @@ export const ErrorBoundary = ({ children, fallback }) => {
   );
 
   return (
-    <Sentry.ErrorBoundary fallback={fallback || defaultFallback}>
+    <Sentry.ErrorBoundary
+      fallback={fallback || defaultFallback}
+      showDialog={true}
+    >
       {children}
     </Sentry.ErrorBoundary>
   );

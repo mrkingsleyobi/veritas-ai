@@ -13,7 +13,7 @@ const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-expre
 const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
 const { RedisInstrumentation } = require('@opentelemetry/instrumentation-redis');
 const { PgInstrumentation } = require('@opentelemetry/instrumentation-pg');
-const { Resource } = require('@opentelemetry/resources');
+const { resourceFromAttributes } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
 
 class OpenTelemetryConfig {
@@ -32,7 +32,7 @@ class OpenTelemetryConfig {
 
     try {
       // Configure resource with service information
-      const resource = new Resource({
+      const resource = resourceFromAttributes({
         [SemanticResourceAttributes.SERVICE_NAME]: 'veritas-ai-platform',
         [SemanticResourceAttributes.SERVICE_VERSION]: '1.0.0',
         [SemanticResourceAttributes.SERVICE_NAMESPACE]: 'veritas-ai',

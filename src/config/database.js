@@ -30,7 +30,8 @@ const redisConfig = {
   db: parseInt(process.env.REDIS_DB) || 0,
   keyPrefix: process.env.REDIS_KEY_PREFIX || 'veritas:',
   retryDelayOnFailover: parseInt(process.env.REDIS_RETRY_DELAY) || 1000,
-  maxRetriesPerRequest: parseInt(process.env.REDIS_MAX_RETRIES) || (process.env.NODE_ENV === 'test' ? 1 : 3),
+  // BullMQ requires maxRetriesPerRequest to be null
+  maxRetriesPerRequest: null,
   maxRetries: process.env.NODE_ENV === 'test' ? 1 : 10
 };
 

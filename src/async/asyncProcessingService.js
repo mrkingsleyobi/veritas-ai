@@ -31,13 +31,22 @@ class AsyncProcessingService {
       console.log('Initializing async processing service...');
 
       // Initialize core components
-      await Promise.all([
-        rabbitmq.initialize(),
+      // RabbitMQ is optional in development
+      const coreComponents = [
         jobQueueManager.initialize(),
         contentVerificationWorker.initialize(),
         taskScheduler.initialize(),
         metricsCollector.initialize()
-      ]);
+      ];
+
+      // Add RabbitMQ initialization only if RABBITMQ_URL is set or in production
+      if (process.env.RABBITMQ_URL || process.env.NODE_ENV === 'production') {
+        coreComponents.unshift(rabbitmq.initialize());
+      } else {
+        console.log('RabbitMQ not configured, skipping initialization in development');
+      }
+
+      await Promise.all(coreComponents);
 
       // Set up workers
       await this._setupWorkers();
@@ -167,18 +176,25 @@ class AsyncProcessingService {
       components: {}
     };
 
-    // Check RabbitMQ
-    try {
-      const queueMetrics = await rabbitmq.getQueueMetrics();
+    // Check RabbitMQ (only if initialized)
+    if (process.env.RABBITMQ_URL || process.env.NODE_ENV === 'production') {
+      try {
+        const queueMetrics = await rabbitmq.getQueueMetrics();
 
+        healthStatus.components.rabbitmq = {
+          status: 'healthy',
+          metrics: queueMetrics
+        };
+      } catch (error) {
+        healthStatus.components.rabbitmq = {
+          status: 'unhealthy',
+          error: error.message
+        };
+      }
+    } else {
       healthStatus.components.rabbitmq = {
-        status: 'healthy',
-        metrics: queueMetrics
-      };
-    } catch (error) {
-      healthStatus.components.rabbitmq = {
-        status: 'unhealthy',
-        error: error.message
+        status: 'skipped',
+        message: 'RabbitMQ not configured in development'
       };
     }
 
@@ -426,13 +442,19 @@ class AsyncProcessingService {
       }
 
       // Close components in parallel
-      await Promise.allSettled([
-        rabbitmq.close(),
+      const closeComponents = [
         jobQueueManager.close(),
         contentVerificationWorker.close(),
         taskScheduler.close(),
         metricsCollector.close()
-      ]);
+      ];
+
+      // Add RabbitMQ close only if it was initialized
+      if (process.env.RABBITMQ_URL || process.env.NODE_ENV === 'production') {
+        closeComponents.unshift(rabbitmq.close());
+      }
+
+      await Promise.allSettled(closeComponents);
 
       this.isInitialized = false;
       console.log('Async processing service closed');

@@ -14,17 +14,15 @@ initLogRocket();
 // Initialize theme from localStorage or system preference
 const initializeTheme = () => {
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    document.documentElement.classList.add(savedTheme);
-    document.body.classList.remove('light', 'dark');
-    document.body.classList.add(savedTheme);
-  } else {
+  let themeToApply = savedTheme;
+
+  if (!savedTheme || savedTheme === 'system') {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = prefersDark ? 'dark' : 'light';
-    document.documentElement.classList.add(theme);
-    document.body.classList.remove('light', 'dark');
-    document.body.classList.add(theme);
+    themeToApply = prefersDark ? 'dark' : 'light';
   }
+
+  // Set data-theme attribute for CSS variables
+  document.documentElement.setAttribute('data-theme', themeToApply);
 };
 
 initializeTheme();

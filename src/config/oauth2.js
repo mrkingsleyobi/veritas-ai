@@ -7,9 +7,10 @@
 
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2').Strategy;
-const redis = require('redis');
-const connectRedis = require('connect-redis');
+const Redis = require('ioredis');
 const session = require('express-session');
+const ConnectRedis = require('connect-redis');
+const { redisConfig } = require('./database');
 
 class OAuth2Config {
   constructor() {
@@ -27,23 +28,32 @@ class OAuth2Config {
     }
 
     try {
-      // Initialize Redis client for session storage
-      this.redisClient = redis.createClient({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT || 6379,
-        password: process.env.REDIS_PASSWORD || undefined,
-        db: process.env.REDIS_DB || 0
+      // Initialize Redis client for session storage using the same configuration as the rest of the project
+      this.redisClient = new Redis({
+        host: redisConfig.host,
+        port: redisConfig.port,
+        password: redisConfig.password,
+        db: redisConfig.db,
+        keyPrefix: redisConfig.keyPrefix,
+        retryDelayOnFailover: redisConfig.retryDelayOnFailover,
+        maxRetriesPerRequest: redisConfig.maxRetriesPerRequest,
+        maxRetries: redisConfig.maxRetries,
+        lazyConnect: true,
+        reconnectOnError: (err) => {
+          const targetError = 'READONLY';
+
+          if (err.message.includes(targetError)) {
+            return true; // or `return 1;`
+          }
+        }
       });
 
       this.redisClient.on('error', (err) => {
         console.error('Redis error:', err);
       });
 
-      await this.redisClient.connect();
-
       // Initialize Redis store for sessions
-      const RedisStore = connectRedis(session);
-
+      const RedisStore = ConnectRedis.RedisStore;
       this.redisStore = new RedisStore({
         client: this.redisClient,
         prefix: 'sessions:',
@@ -66,6 +76,20 @@ class OAuth2Config {
    */
   _configureStrategy() {
     const provider = process.env.OAUTH2_PROVIDER || 'auth0';
+
+    // Check if OAuth2 credentials are provided
+    const hasCredentials = process.env.OAUTH2_CLIENT_ID && process.env.OAUTH2_CLIENT_SECRET;
+
+    // If no credentials are provided, skip OAuth2 configuration in development
+    if (!hasCredentials && process.env.NODE_ENV === 'development') {
+      console.log('OAuth2 credentials not provided, skipping OAuth2 configuration in development');
+      return;
+    }
+
+    // If no credentials are provided in production, throw an error
+    if (!hasCredentials && process.env.NODE_ENV === 'production') {
+      throw new Error('OAuth2 credentials are required in production environment');
+    }
 
     let strategyConfig;
 
@@ -162,8 +186,8 @@ class OAuth2Config {
    * @returns {Object} Session configuration
    */
   getSessionConfig() {
-    return {
-      store: this.redisStore,
+    // If Redis store is not initialized (OAuth2 not configured), use default memory store
+    const sessionConfig = {
       secret: process.env.SESSION_SECRET || 'fallback_secret_key_for_development',
       resave: false,
       saveUninitialized: false,
@@ -173,6 +197,13 @@ class OAuth2Config {
         maxAge: 1000 * 60 * 60 * 24 // 24 hours
       }
     };
+
+    // Only add Redis store if it's initialized
+    if (this.redisStore) {
+      sessionConfig.store = this.redisStore;
+    }
+
+    return sessionConfig;
   }
 
   /**

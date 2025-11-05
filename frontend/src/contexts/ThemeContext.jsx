@@ -25,16 +25,13 @@ export const ThemeProvider = ({ children }) => {
     // If system theme is selected, use system preference
     if (selectedTheme === 'system') {
       themeToApply = getSystemTheme()
-      document.documentElement.setAttribute('data-theme', 'system')
-    } else {
-      document.documentElement.removeAttribute('data-theme')
     }
 
     // Remove all theme classes
     document.documentElement.classList.remove('light', 'dark', 'high-contrast')
 
-    // Add the appropriate theme class
-    document.documentElement.classList.add(themeToApply)
+    // Set data-theme attribute for CSS variables
+    document.documentElement.setAttribute('data-theme', themeToApply)
 
     // Update color scheme meta tag
     const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]')
