@@ -34,10 +34,10 @@
 
 In 2025, **44% of organizations are implementing agentic AI** (Source: Deloitte), and the AI orchestration market is projected to reach **$30.23 billion by 2030**. Veritas AI is positioned at the intersection of the fastest-growing AI trends:
 
-✅ **Low-Competition Niche**: Autonomous agents for content verification
-✅ **High-Growth Market**: Agentic AI & workflow automation
-✅ **Emerging Standards**: MCP-compatible agent orchestration
-✅ **Real-World Impact**: Combat misinformation and deepfakes
+- ✅ **Low-Competition Niche**: Autonomous agents for content verification
+- ✅ **High-Growth Market**: Agentic AI & workflow automation
+- ✅ **Emerging Standards**: MCP-compatible agent orchestration
+- ✅ **Real-World Impact**: Combat misinformation and deepfakes
 
 ---
 
