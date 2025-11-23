@@ -31,6 +31,9 @@
     "build": "tsc",
     "start": "node src/server/index.js",
     "dev": "nodemon src/server/index.js",
+    "migrate": "node src/database/migrationRunner.js migrate",
+    "migrate:rollback": "node src/database/migrationRunner.js rollback",
+    "migrate:status": "node src/database/migrationRunner.js status",
     "security:test": "jest tests/security",
     "security:scan": "npx eslint --config .eslintrc.security.js src/ && npm audit",
     "k6:run": "k6 run tests/load/contentAuthenticator.stress.test.js"

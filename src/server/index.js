@@ -35,9 +35,32 @@ const openTelemetryConfig = require('../config/opentelemetry');
 // Import OAuth2 configuration
 const oauth2Config = require('../config/oauth2');
 
+// Import database configuration
+const { Pool } = require('pg');
+const { postgresConfig } = require('../config/database');
+const redisClient = require('../config/redis');
+
+// Import AgentDB services
+const AgentDBService = require('../services/AgentDBService');
+const AgentMonitoringService = require('../services/AgentMonitoringService');
+
+// Import Agentic Flow services
+const AgenticFlowEngine = require('../services/agentic-flow/AgenticFlowEngine');
+const AgentDecisionFramework = require('../services/agentic-flow/AgentDecisionFramework');
+
 // Initialize services
 const authenticator = new ContentAuthenticator();
 const ruvService = new RUVProfileService();
+
+// Initialize database pool
+const dbPool = new Pool(postgresConfig);
+
+// AgentDB and Monitoring services (will be initialized after server starts)
+let agentDBService = null;
+let agentMonitoringService = null;
+let agenticFlowEngine = null;
+let agentDecisionFramework = null;
+let redis = null;
 
 // Initialize OpenTelemetry
 let tracer;
@@ -154,6 +177,13 @@ const auditRoutes = require('./routes/auditRoutes');
 // Import Compliance Dashboard routes
 const dashboardRoutes = require('./routes/dashboardRoutes');
 
+// Import AgentDB routes
+const initializeAgentDBRoutes = require('./routes/agentdbRoutes');
+const initializeAgentMonitoringRoutes = require('./routes/agentMonitoringRoutes');
+
+// Import Agentic Flow routes
+const initializeAgenticFlowRoutes = require('./routes/agenticFlowRoutes');
+
 // Routes
 app.get('/', (req, res) => {
   res.json({
@@ -183,6 +213,9 @@ app.use('/api/audit', auditRoutes);
 
 // Compliance Dashboard routes
 app.use('/api/dashboard', dashboardRoutes);
+
+// AgentDB routes (will be initialized after AgentDB service is ready)
+// Placeholder - routes will be registered in server startup
 
 // OAuth2 routes (only if OAuth2 is configured)
 if (process.env.OAUTH2_CLIENT_ID && process.env.OAUTH2_CLIENT_SECRET) {
@@ -494,6 +527,18 @@ app.use((err, req, res, next) => {
 process.on('SIGTERM', async() => {
   console.log('SIGTERM received, shutting down gracefully...');
   try {
+    if (agentMonitoringService) {
+      agentMonitoringService.stopMonitoring();
+    }
+    if (agentDBService) {
+      await agentDBService.cleanup();
+    }
+    if (dbPool) {
+      await dbPool.end();
+    }
+    if (redis) {
+      await redisClient.disconnect();
+    }
     await openTelemetryConfig.close();
     await oauth2Config.close();
     await auditLogger.close();
@@ -507,6 +552,18 @@ process.on('SIGTERM', async() => {
 process.on('SIGINT', async() => {
   console.log('SIGINT received, shutting down gracefully...');
   try {
+    if (agentMonitoringService) {
+      agentMonitoringService.stopMonitoring();
+    }
+    if (agentDBService) {
+      await agentDBService.cleanup();
+    }
+    if (dbPool) {
+      await dbPool.end();
+    }
+    if (redis) {
+      await redisClient.disconnect();
+    }
     await openTelemetryConfig.close();
     await oauth2Config.close();
     await auditLogger.close();
@@ -518,10 +575,48 @@ process.on('SIGINT', async() => {
 });
 
 // Start server
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, async () => {
   console.log(`Secure server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`Prometheus metrics available at http://localhost:${process.env.PROMETHEUS_PORT || 9464}/metrics`);
+
+  // Initialize AgentDB after server starts
+  try {
+    console.log('\nInitializing AgentDB services...');
+
+    // Connect to Redis
+    redis = await redisClient.connect();
+    console.log('Redis connected');
+
+    // Initialize AgentDB service
+    agentDBService = new AgentDBService(dbPool, redis);
+    await agentDBService.initialize();
+    console.log('AgentDB service initialized');
+
+    // Initialize Agent Monitoring
+    agentMonitoringService = new AgentMonitoringService(agentDBService);
+    agentMonitoringService.startMonitoring(60000); // Monitor every 60 seconds
+    console.log('Agent monitoring started');
+
+    // Initialize Agentic Flow Engine
+    agenticFlowEngine = new AgenticFlowEngine(agentDBService);
+    console.log('Agentic Flow Engine initialized');
+
+    // Initialize Agent Decision Framework
+    agentDecisionFramework = new AgentDecisionFramework(agentDBService);
+    console.log('Agent Decision Framework initialized');
+
+    // Register AgentDB routes dynamically
+    app.use('/api/agentdb', initializeAgentDBRoutes(agentDBService));
+    app.use('/api/agent-monitoring', initializeAgentMonitoringRoutes(agentMonitoringService));
+    app.use('/api/agentic-flow', initializeAgenticFlowRoutes(agenticFlowEngine, agentDecisionFramework));
+    console.log('AgentDB and Agentic Flow routes registered\n');
+
+    console.log('✅ AgentDB and Agentic Flow fully operational');
+  } catch (error) {
+    console.error('❌ Failed to initialize AgentDB:', error.message);
+    console.error('Server will continue without AgentDB functionality');
+  }
 });
 
 module.exports = server;
