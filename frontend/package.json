@@ -28,7 +28,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "@sentry/react": "^10.22.0",
     "autoprefixer": "^10.4.16",
-    "axios": "^1.6.0",
+    "axios": "^1.13.5",
     "logrocket": "^10.1.0",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
